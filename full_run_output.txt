@@ -1,0 +1,1802 @@
+[
+  {
+    "ticket_id": "TCK-00086",
+    "customer_email": "customer86@example.com",
+    "product": "Wireless Mouse X1",
+    "topic": "login issue",
+    "message": "The Wireless Mouse X1 I received is defective, the screen has dead pixels.",
+    "created_at": "2026-06-03T21:58:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00058",
+    "customer_email": "customer58@example.com",
+    "product": "Wireless Mouse X1",
+    "topic": "warranty claim",
+    "message": "Is my Wireless Mouse X1 still under warranty? It broke after 3 months.",
+    "created_at": "2026-06-11T07:16:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00141",
+    "customer_email": "customer141@example.com",
+    "product": "USB-C Dock",
+    "topic": "login issue",
+    "message": "The USB-C Dock I received is defective, the screen has dead pixels.",
+    "created_at": "2026-06-24T17:21:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00104",
+    "customer_email": "customer104@example.com",
+    "product": "Mechanical Keyboard K2",
+    "topic": "refund request",
+    "message": "The Mechanical Keyboard K2 I received is defective, the screen has dead pixels.",
+    "created_at": "2026-06-27T20:17:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00032",
+    "customer_email": "customer32@example.com",
+    "product": "Noise Cancelling Headset",
+    "topic": "shipping delay",
+    "message": "I can't log into my account to track my Noise Cancelling Headset order.",
+    "created_at": "2026-06-25T17:49:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00009",
+    "customer_email": "customer9@example.com",
+    "product": "USB-C Dock",
+    "topic": "login issue",
+    "message": "My order for USB-C Dock is delayed, can you check the status?",
+    "created_at": "2026-06-03T17:18:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00001",
+    "customer_email": "dup4@example.com",
+    "product": "Wireless Mouse X1",
+    "topic": "shipping delay",
+    "message": "Duplicate id test",
+    "created_at": "2026-06-28T02:17:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00028",
+    "customer_email": "customer28@example.com",
+    "product": "Noise Cancelling Headset",
+    "topic": "warranty claim",
+    "message": "The Noise Cancelling Headset I received is defective, the screen has dead pixels.",
+    "created_at": "2026-06-17T19:12:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00101",
+    "customer_email": "customer101@example.com",
+    "product": "Mechanical Keyboard K2",
+    "topic": "login issue",
+    "message": "I want a refund for my Mechanical Keyboard K2, it stopped working after 2 days.",
+    "created_at": "2026-06-22T16:35:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00131",
+    "customer_email": "customer131@example.com",
+    "product": "Mechanical Keyboard K2",
+    "topic": "warranty claim",
+    "message": "I want a refund for my Mechanical Keyboard K2, it stopped working after 2 days.",
+    "created_at": "2026-06-17T20:17:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00097",
+    "customer_email": "customer97@example.com",
+    "product": "Mechanical Keyboard K2",
+    "topic": "warranty claim",
+    "message": "I can't log into my account to track my Mechanical Keyboard K2 order.",
+    "created_at": "2026-06-19T06:45:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00158",
+    "customer_email": "customer158@example.com",
+    "product": "Mechanical Keyboard K2",
+    "topic": "shipping delay",
+    "message": "The Mechanical Keyboard K2 I received is defective, the screen has dead pixels.",
+    "created_at": "2026-06-08T09:45:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00034",
+    "customer_email": "customer34@example.com",
+    "product": "USB-C Dock",
+    "topic": "login issue",
+    "message": "I was charged twice for my USB-C Dock, please fix my billing.",
+    "created_at": "2026-07-01T06:59:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00027",
+    "customer_email": "customer27@example.com",
+    "product": "Noise Cancelling Headset",
+    "topic": "product defect",
+    "message": "Is my Noise Cancelling Headset still under warranty? It broke after 3 months.",
+    "created_at": "2026-06-17T05:32:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00072",
+    "customer_email": "customer72@example.com",
+    "product": "Wireless Mouse X1",
+    "topic": "refund request",
+    "message": "I can't log into my account to track my Wireless Mouse X1 order.",
+    "created_at": "2026-06-02T09:23:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00144",
+    "customer_email": "customer144@example.com",
+    "product": "Wireless Mouse X1",
+    "topic": "refund request",
+    "message": "I want a refund for my Wireless Mouse X1, it stopped working after 2 days.",
+    "created_at": "2026-06-24T15:17:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00123",
+    "customer_email": "customer123@example.com",
+    "product": "Wireless Mouse X1",
+    "topic": "billing question",
+    "message": "I was charged twice for my Wireless Mouse X1, please fix my billing.",
+    "created_at": "2026-07-01T23:45:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00126",
+    "customer_email": "customer126@example.com",
+    "product": "USB-C Dock",
+    "topic": "warranty claim",
+    "message": "Is my USB-C Dock still under warranty? It broke after 3 months.",
+    "created_at": "2026-06-08T03:44:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00116",
+    "customer_email": "customer116@example.com",
+    "product": "Noise Cancelling Headset",
+    "topic": "refund request",
+    "message": "I can't log into my account to track my Noise Cancelling Headset order.",
+    "created_at": "2026-06-28T14:11:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00134",
+    "customer_email": "customer134@example.com",
+    "product": "USB-C Dock",
+    "topic": "warranty claim",
+    "message": "I was charged twice for my USB-C Dock, please fix my billing.",
+    "created_at": "2026-06-13T10:01:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00149",
+    "customer_email": "customer149@example.com",
+    "product": "USB-C Dock",
+    "topic": "login issue",
+    "message": "The USB-C Dock I received is defective, the screen has dead pixels.",
+    "created_at": "2026-06-16T14:21:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-BAD012",
+    "customer_email": "empty12@example.com",
+    "product": "Wireless Mouse X1",
+    "topic": "refund request",
+    "message": "",
+    "created_at": "2026-06-19T12:14:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00155",
+    "customer_email": "customer155@example.com",
+    "product": "Laptop Pro 14",
+    "topic": "warranty claim",
+    "message": "I was charged twice for my Laptop Pro 14, please fix my billing.",
+    "created_at": "2026-06-04T06:40:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00011",
+    "customer_email": "customer11@example.com",
+    "product": "Noise Cancelling Headset",
+    "topic": "product defect",
+    "message": "I want a refund for my Noise Cancelling Headset, it stopped working after 2 days.",
+    "created_at": "2026-06-03T07:55:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00133",
+    "customer_email": "customer133@example.com",
+    "product": "4K Monitor 27in",
+    "topic": "shipping delay",
+    "message": "I want a refund for my 4K Monitor 27in, it stopped working after 2 days.",
+    "created_at": "2026-06-09T14:15:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-BAD018",
+    "customer_email": "pri18@example.com",
+    "product": "Laptop Pro 14",
+    "topic": "warranty claim",
+    "message": "Bad priority test",
+    "created_at": "2026-06-28T14:06:00",
+    "priority": "URGENT!!"
+  },
+  {
+    "ticket_id": "TCK-00095",
+    "customer_email": "customer95@example.com",
+    "product": "Laptop Pro 14",
+    "topic": "warranty claim",
+    "message": "I want a refund for my Laptop Pro 14, it stopped working after 2 days.",
+    "created_at": "2026-06-10T07:51:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00016",
+    "customer_email": "customer16@example.com",
+    "product": "Noise Cancelling Headset",
+    "topic": "refund request",
+    "message": "I was charged twice for my Noise Cancelling Headset, please fix my billing.",
+    "created_at": "2026-06-22T10:53:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00154",
+    "customer_email": "customer154@example.com",
+    "product": "Mechanical Keyboard K2",
+    "topic": "billing question",
+    "message": "The Mechanical Keyboard K2 I received is defective, the screen has dead pixels.",
+    "created_at": "2026-06-14T09:36:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00055",
+    "customer_email": "customer55@example.com",
+    "product": "Laptop Pro 14",
+    "topic": "refund request",
+    "message": "Is my Laptop Pro 14 still under warranty? It broke after 3 months.",
+    "created_at": "2026-06-13T03:56:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00004",
+    "customer_email": "customer4@example.com",
+    "product": "Wireless Mouse X1",
+    "topic": "billing question",
+    "message": "I was charged twice for my Wireless Mouse X1, please fix my billing.",
+    "created_at": "2026-06-01T17:12:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00079",
+    "customer_email": "customer79@example.com",
+    "product": "Wireless Mouse X1",
+    "topic": "warranty claim",
+    "message": "My order for Wireless Mouse X1 is delayed, can you check the status?",
+    "created_at": "2026-06-07T12:21:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00094",
+    "customer_email": "customer94@example.com",
+    "product": "Laptop Pro 14",
+    "topic": "billing question",
+    "message": "The Laptop Pro 14 I received is defective, the screen has dead pixels.",
+    "created_at": "2026-06-22T20:39:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00039",
+    "customer_email": "customer39@example.com",
+    "product": "Laptop Pro 14",
+    "topic": "shipping delay",
+    "message": "I want a refund for my Laptop Pro 14, it stopped working after 2 days.",
+    "created_at": "2026-06-29T01:55:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-BAD011",
+    "customer_email": "not-an-email",
+    "product": "4K Monitor 27in",
+    "topic": "login issue",
+    "message": "Bad email test",
+    "created_at": "2026-06-28T06:44:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00108",
+    "customer_email": "customer108@example.com",
+    "product": "Noise Cancelling Headset",
+    "topic": "shipping delay",
+    "message": "I want a refund for my Noise Cancelling Headset, it stopped working after 2 days.",
+    "created_at": "2026-06-14T13:21:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00124",
+    "customer_email": "customer124@example.com",
+    "product": "Wireless Mouse X1",
+    "topic": "shipping delay",
+    "message": "The Wireless Mouse X1 I received is defective, the screen has dead pixels.",
+    "created_at": "2026-06-19T00:59:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00140",
+    "customer_email": "customer140@example.com",
+    "product": "Wireless Mouse X1",
+    "topic": "warranty claim",
+    "message": "The Wireless Mouse X1 I received is defective, the screen has dead pixels.",
+    "created_at": "2026-06-19T11:30:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00070",
+    "customer_email": "customer70@example.com",
+    "product": "USB-C Dock",
+    "topic": "login issue",
+    "message": "Is my USB-C Dock still under warranty? It broke after 3 months.",
+    "created_at": "2026-06-18T00:07:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00001",
+    "customer_email": "customer1@example.com",
+    "product": "Noise Cancelling Headset",
+    "topic": "shipping delay",
+    "message": "My order for Noise Cancelling Headset is delayed, can you check the status?",
+    "created_at": "2026-06-24T08:15:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00150",
+    "customer_email": "customer150@example.com",
+    "product": "Laptop Pro 14",
+    "topic": "login issue",
+    "message": "The Laptop Pro 14 I received is defective, the screen has dead pixels.",
+    "created_at": "2026-06-04T02:25:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00170",
+    "customer_email": "customer170@example.com",
+    "product": "4K Monitor 27in",
+    "topic": "product defect",
+    "message": "I can't log into my account to track my 4K Monitor 27in order.",
+    "created_at": "2026-06-11T21:06:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-BAD008",
+    "customer_email": "pri8@example.com",
+    "product": "Wireless Mouse X1",
+    "topic": "warranty claim",
+    "message": "Bad priority test",
+    "created_at": "2026-06-15T17:30:00",
+    "priority": "URGENT!!"
+  },
+  {
+    "ticket_id": "TCK-BAD003",
+    "customer_email": "pri3@example.com",
+    "product": "USB-C Dock",
+    "topic": "warranty claim",
+    "message": "Bad priority test",
+    "created_at": "2026-06-17T23:56:00",
+    "priority": "URGENT!!"
+  },
+  {
+    "ticket_id": "TCK-00071",
+    "customer_email": "customer71@example.com",
+    "product": "Noise Cancelling Headset",
+    "topic": "billing question",
+    "message": "I want a refund for my Noise Cancelling Headset, it stopped working after 2 days.",
+    "created_at": "2026-06-02T11:37:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00069",
+    "customer_email": "customer69@example.com",
+    "product": "4K Monitor 27in",
+    "topic": "warranty claim",
+    "message": "I want a refund for my 4K Monitor 27in, it stopped working after 2 days.",
+    "created_at": "2026-06-09T05:47:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00151",
+    "customer_email": "customer151@example.com",
+    "product": "Laptop Pro 14",
+    "topic": "warranty claim",
+    "message": "I was charged twice for my Laptop Pro 14, please fix my billing.",
+    "created_at": "2026-06-22T01:09:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00177",
+    "customer_email": "customer177@example.com",
+    "product": "Laptop Pro 14",
+    "topic": "billing question",
+    "message": "Is my Laptop Pro 14 still under warranty? It broke after 3 months.",
+    "created_at": "2026-06-26T07:45:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-BAD017",
+    "customer_email": "empty17@example.com",
+    "product": "USB-C Dock",
+    "topic": "refund request",
+    "message": "",
+    "created_at": "2026-07-01T18:21:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-BAD001",
+    "customer_email": "not-an-email",
+    "product": "Mechanical Keyboard K2",
+    "topic": "login issue",
+    "message": "Bad email test",
+    "created_at": "2026-06-08T14:35:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00093",
+    "customer_email": "customer93@example.com",
+    "product": "Wireless Mouse X1",
+    "topic": "login issue",
+    "message": "I was charged twice for my Wireless Mouse X1, please fix my billing.",
+    "created_at": "2026-06-26T23:10:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00099",
+    "customer_email": "customer99@example.com",
+    "product": "Laptop Pro 14",
+    "topic": "login issue",
+    "message": "My order for Laptop Pro 14 is delayed, can you check the status?",
+    "created_at": "2026-06-08T05:51:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00165",
+    "customer_email": "customer165@example.com",
+    "product": "Laptop Pro 14",
+    "topic": "shipping delay",
+    "message": "I was charged twice for my Laptop Pro 14, please fix my billing.",
+    "created_at": "2026-06-29T13:47:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00156",
+    "customer_email": "customer156@example.com",
+    "product": "4K Monitor 27in",
+    "topic": "shipping delay",
+    "message": "Is my 4K Monitor 27in still under warranty? It broke after 3 months.",
+    "created_at": "2026-06-06T07:11:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00067",
+    "customer_email": "customer67@example.com",
+    "product": "Noise Cancelling Headset",
+    "topic": "billing question",
+    "message": "The Noise Cancelling Headset I received is defective, the screen has dead pixels.",
+    "created_at": "2026-06-16T08:57:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00056",
+    "customer_email": "customer56@example.com",
+    "product": "Wireless Mouse X1",
+    "topic": "billing question",
+    "message": "I was charged twice for my Wireless Mouse X1, please fix my billing.",
+    "created_at": "2026-06-02T19:05:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00048",
+    "customer_email": "customer48@example.com",
+    "product": "Laptop Pro 14",
+    "topic": "refund request",
+    "message": "My order for Laptop Pro 14 is delayed, can you check the status?",
+    "created_at": "2026-06-06T13:31:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00135",
+    "customer_email": "customer135@example.com",
+    "product": "4K Monitor 27in",
+    "topic": "login issue",
+    "message": "I want a refund for my 4K Monitor 27in, it stopped working after 2 days.",
+    "created_at": "2026-06-07T11:51:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00052",
+    "customer_email": "customer52@example.com",
+    "product": "Laptop Pro 14",
+    "topic": "warranty claim",
+    "message": "I was charged twice for my Laptop Pro 14, please fix my billing.",
+    "created_at": "2026-06-18T01:47:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00122",
+    "customer_email": "customer122@example.com",
+    "product": "Laptop Pro 14",
+    "topic": "refund request",
+    "message": "I was charged twice for my Laptop Pro 14, please fix my billing.",
+    "created_at": "2026-06-15T22:16:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-BAD013",
+    "customer_email": "pri13@example.com",
+    "product": "Mechanical Keyboard K2",
+    "topic": "warranty claim",
+    "message": "Bad priority test",
+    "created_at": "2026-06-02T10:47:00",
+    "priority": "URGENT!!"
+  },
+  {
+    "ticket_id": "TCK-00053",
+    "customer_email": "customer53@example.com",
+    "product": "Laptop Pro 14",
+    "topic": "billing question",
+    "message": "My order for Laptop Pro 14 is delayed, can you check the status?",
+    "created_at": "2026-06-16T16:58:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00174",
+    "customer_email": "customer174@example.com",
+    "product": "Mechanical Keyboard K2",
+    "topic": "shipping delay",
+    "message": "I can't log into my account to track my Mechanical Keyboard K2 order.",
+    "created_at": "2026-06-07T16:23:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00001",
+    "customer_email": "dup14@example.com",
+    "product": "Mechanical Keyboard K2",
+    "topic": "shipping delay",
+    "message": "Duplicate id test",
+    "created_at": "2026-06-23T12:24:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00022",
+    "customer_email": "customer22@example.com",
+    "product": "Laptop Pro 14",
+    "topic": "refund request",
+    "message": "My order for Laptop Pro 14 is delayed, can you check the status?",
+    "created_at": "2026-06-21T05:50:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00035",
+    "customer_email": "customer35@example.com",
+    "product": "Noise Cancelling Headset",
+    "topic": "refund request",
+    "message": "Is my Noise Cancelling Headset still under warranty? It broke after 3 months.",
+    "created_at": "2026-06-23T09:25:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00130",
+    "customer_email": "customer130@example.com",
+    "product": "Laptop Pro 14",
+    "topic": "product defect",
+    "message": "I can't log into my account to track my Laptop Pro 14 order.",
+    "created_at": "2026-06-21T14:45:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-BAD016",
+    "customer_email": "not-an-email",
+    "product": "Mechanical Keyboard K2",
+    "topic": "login issue",
+    "message": "Bad email test",
+    "created_at": "2026-07-01T01:08:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00148",
+    "customer_email": "customer148@example.com",
+    "product": "Noise Cancelling Headset",
+    "topic": "warranty claim",
+    "message": "I want a refund for my Noise Cancelling Headset, it stopped working after 2 days.",
+    "created_at": "2026-06-28T15:06:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00132",
+    "customer_email": "customer132@example.com",
+    "product": "USB-C Dock",
+    "topic": "login issue",
+    "message": "I can't log into my account to track my USB-C Dock order.",
+    "created_at": "2026-06-14T23:37:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00127",
+    "customer_email": "customer127@example.com",
+    "product": "Noise Cancelling Headset",
+    "topic": "shipping delay",
+    "message": "I was charged twice for my Noise Cancelling Headset, please fix my billing.",
+    "created_at": "2026-06-26T18:50:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00023",
+    "customer_email": "customer23@example.com",
+    "product": "Mechanical Keyboard K2",
+    "topic": "shipping delay",
+    "message": "I was charged twice for my Mechanical Keyboard K2, please fix my billing.",
+    "created_at": "2026-06-13T12:38:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00054",
+    "customer_email": "customer54@example.com",
+    "product": "Wireless Mouse X1",
+    "topic": "billing question",
+    "message": "My order for Wireless Mouse X1 is delayed, can you check the status?",
+    "created_at": "2026-06-03T05:04:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00042",
+    "customer_email": "customer42@example.com",
+    "product": "Wireless Mouse X1",
+    "topic": "login issue",
+    "message": "I can't log into my account to track my Wireless Mouse X1 order.",
+    "created_at": "2026-06-07T03:06:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00115",
+    "customer_email": "customer115@example.com",
+    "product": "Laptop Pro 14",
+    "topic": "billing question",
+    "message": "I can't log into my account to track my Laptop Pro 14 order.",
+    "created_at": "2026-06-19T21:01:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00164",
+    "customer_email": "customer164@example.com",
+    "product": "Noise Cancelling Headset",
+    "topic": "product defect",
+    "message": "I can't log into my account to track my Noise Cancelling Headset order.",
+    "created_at": "2026-06-17T17:31:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00017",
+    "customer_email": "customer17@example.com",
+    "product": "Wireless Mouse X1",
+    "topic": "product defect",
+    "message": "My order for Wireless Mouse X1 is delayed, can you check the status?",
+    "created_at": "2026-06-13T08:04:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00152",
+    "customer_email": "customer152@example.com",
+    "product": "USB-C Dock",
+    "topic": "shipping delay",
+    "message": "The USB-C Dock I received is defective, the screen has dead pixels.",
+    "created_at": "2026-06-08T03:35:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00075",
+    "customer_email": "customer75@example.com",
+    "product": "Wireless Mouse X1",
+    "topic": "login issue",
+    "message": "I want a refund for my Wireless Mouse X1, it stopped working after 2 days.",
+    "created_at": "2026-06-01T05:47:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00005",
+    "customer_email": "customer5@example.com",
+    "product": "Noise Cancelling Headset",
+    "topic": "billing question",
+    "message": "Is my Noise Cancelling Headset still under warranty? It broke after 3 months.",
+    "created_at": "2026-06-14T07:28:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00057",
+    "customer_email": "customer57@example.com",
+    "product": "Noise Cancelling Headset",
+    "topic": "billing question",
+    "message": "I was charged twice for my Noise Cancelling Headset, please fix my billing.",
+    "created_at": "2026-06-17T10:59:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00001",
+    "customer_email": "dup19@example.com",
+    "product": "USB-C Dock",
+    "topic": "shipping delay",
+    "message": "Duplicate id test",
+    "created_at": "2026-06-30T14:00:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00006",
+    "customer_email": "customer6@example.com",
+    "product": "4K Monitor 27in",
+    "topic": "refund request",
+    "message": "My order for 4K Monitor 27in is delayed, can you check the status?",
+    "created_at": "2026-06-23T13:21:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00083",
+    "customer_email": "customer83@example.com",
+    "product": "4K Monitor 27in",
+    "topic": "billing question",
+    "message": "I can't log into my account to track my 4K Monitor 27in order.",
+    "created_at": "2026-06-17T03:24:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00091",
+    "customer_email": "customer91@example.com",
+    "product": "USB-C Dock",
+    "topic": "product defect",
+    "message": "My order for USB-C Dock is delayed, can you check the status?",
+    "created_at": "2026-06-10T06:27:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00013",
+    "customer_email": "customer13@example.com",
+    "product": "4K Monitor 27in",
+    "topic": "warranty claim",
+    "message": "I want a refund for my 4K Monitor 27in, it stopped working after 2 days.",
+    "created_at": "2026-06-09T22:59:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00081",
+    "customer_email": "customer81@example.com",
+    "product": "USB-C Dock",
+    "topic": "shipping delay",
+    "message": "The USB-C Dock I received is defective, the screen has dead pixels.",
+    "created_at": "2026-06-04T08:11:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00179",
+    "customer_email": "customer179@example.com",
+    "product": "Laptop Pro 14",
+    "topic": "shipping delay",
+    "message": "I can't log into my account to track my Laptop Pro 14 order.",
+    "created_at": "2026-06-21T04:31:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00113",
+    "customer_email": "customer113@example.com",
+    "product": "Laptop Pro 14",
+    "topic": "product defect",
+    "message": "I can't log into my account to track my Laptop Pro 14 order.",
+    "created_at": "2026-06-22T21:51:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00172",
+    "customer_email": "customer172@example.com",
+    "product": "USB-C Dock",
+    "topic": "login issue",
+    "message": "My order for USB-C Dock is delayed, can you check the status?",
+    "created_at": "2026-06-03T10:16:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "",
+    "customer_email": "bad15@example.com",
+    "product": "Noise Cancelling Headset",
+    "topic": "billing question",
+    "message": "Missing id test",
+    "created_at": "2026-06-26T20:09:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00033",
+    "customer_email": "customer33@example.com",
+    "product": "Wireless Mouse X1",
+    "topic": "login issue",
+    "message": "Is my Wireless Mouse X1 still under warranty? It broke after 3 months.",
+    "created_at": "2026-07-01T17:10:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00080",
+    "customer_email": "customer80@example.com",
+    "product": "Laptop Pro 14",
+    "topic": "product defect",
+    "message": "The Laptop Pro 14 I received is defective, the screen has dead pixels.",
+    "created_at": "2026-06-21T16:25:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00025",
+    "customer_email": "customer25@example.com",
+    "product": "Laptop Pro 14",
+    "topic": "billing question",
+    "message": "Is my Laptop Pro 14 still under warranty? It broke after 3 months.",
+    "created_at": "2026-06-25T08:49:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "",
+    "customer_email": "bad5@example.com",
+    "product": "Mechanical Keyboard K2",
+    "topic": "billing question",
+    "message": "Missing id test",
+    "created_at": "2026-06-11T16:17:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00029",
+    "customer_email": "customer29@example.com",
+    "product": "4K Monitor 27in",
+    "topic": "billing question",
+    "message": "I want a refund for my 4K Monitor 27in, it stopped working after 2 days.",
+    "created_at": "2026-07-01T16:58:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00143",
+    "customer_email": "customer143@example.com",
+    "product": "Noise Cancelling Headset",
+    "topic": "product defect",
+    "message": "I want a refund for my Noise Cancelling Headset, it stopped working after 2 days.",
+    "created_at": "2026-06-04T23:34:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00103",
+    "customer_email": "customer103@example.com",
+    "product": "Mechanical Keyboard K2",
+    "topic": "login issue",
+    "message": "I was charged twice for my Mechanical Keyboard K2, please fix my billing.",
+    "created_at": "2026-06-29T05:47:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00030",
+    "customer_email": "customer30@example.com",
+    "product": "USB-C Dock",
+    "topic": "login issue",
+    "message": "The USB-C Dock I received is defective, the screen has dead pixels.",
+    "created_at": "2026-06-01T03:59:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00153",
+    "customer_email": "customer153@example.com",
+    "product": "USB-C Dock",
+    "topic": "billing question",
+    "message": "I was charged twice for my USB-C Dock, please fix my billing.",
+    "created_at": "2026-06-08T16:24:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00064",
+    "customer_email": "customer64@example.com",
+    "product": "Noise Cancelling Headset",
+    "topic": "product defect",
+    "message": "I was charged twice for my Noise Cancelling Headset, please fix my billing.",
+    "created_at": "2026-06-30T21:06:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00105",
+    "customer_email": "customer105@example.com",
+    "product": "Mechanical Keyboard K2",
+    "topic": "refund request",
+    "message": "Is my Mechanical Keyboard K2 still under warranty? It broke after 3 months.",
+    "created_at": "2026-06-09T14:04:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00146",
+    "customer_email": "customer146@example.com",
+    "product": "4K Monitor 27in",
+    "topic": "product defect",
+    "message": "I want a refund for my 4K Monitor 27in, it stopped working after 2 days.",
+    "created_at": "2026-06-06T09:00:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00007",
+    "customer_email": "customer7@example.com",
+    "product": "Wireless Mouse X1",
+    "topic": "product defect",
+    "message": "I want a refund for my Wireless Mouse X1, it stopped working after 2 days.",
+    "created_at": "2026-06-04T02:24:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00180",
+    "customer_email": "customer180@example.com",
+    "product": "4K Monitor 27in",
+    "topic": "warranty claim",
+    "message": "I was charged twice for my 4K Monitor 27in, please fix my billing.",
+    "created_at": "2026-06-09T13:53:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00100",
+    "customer_email": "customer100@example.com",
+    "product": "USB-C Dock",
+    "topic": "shipping delay",
+    "message": "I can't log into my account to track my USB-C Dock order.",
+    "created_at": "2026-06-18T07:58:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00088",
+    "customer_email": "customer88@example.com",
+    "product": "USB-C Dock",
+    "topic": "warranty claim",
+    "message": "The USB-C Dock I received is defective, the screen has dead pixels.",
+    "created_at": "2026-06-14T10:25:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00073",
+    "customer_email": "customer73@example.com",
+    "product": "4K Monitor 27in",
+    "topic": "warranty claim",
+    "message": "I want a refund for my 4K Monitor 27in, it stopped working after 2 days.",
+    "created_at": "2026-06-08T21:06:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00002",
+    "customer_email": "customer2@example.com",
+    "product": "Wireless Mouse X1",
+    "topic": "shipping delay",
+    "message": "Is my Wireless Mouse X1 still under warranty? It broke after 3 months.",
+    "created_at": "2026-06-22T23:57:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00036",
+    "customer_email": "customer36@example.com",
+    "product": "Noise Cancelling Headset",
+    "topic": "login issue",
+    "message": "The Noise Cancelling Headset I received is defective, the screen has dead pixels.",
+    "created_at": "2026-06-29T16:28:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00051",
+    "customer_email": "customer51@example.com",
+    "product": "Noise Cancelling Headset",
+    "topic": "login issue",
+    "message": "Is my Noise Cancelling Headset still under warranty? It broke after 3 months.",
+    "created_at": "2026-06-05T06:18:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00001",
+    "customer_email": "dup9@example.com",
+    "product": "4K Monitor 27in",
+    "topic": "shipping delay",
+    "message": "Duplicate id test",
+    "created_at": "2026-06-11T17:48:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00107",
+    "customer_email": "customer107@example.com",
+    "product": "Laptop Pro 14",
+    "topic": "refund request",
+    "message": "I want a refund for my Laptop Pro 14, it stopped working after 2 days.",
+    "created_at": "2026-06-08T12:44:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-BAD002",
+    "customer_email": "empty2@example.com",
+    "product": "Wireless Mouse X1",
+    "topic": "refund request",
+    "message": "",
+    "created_at": "2026-06-13T06:58:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00129",
+    "customer_email": "customer129@example.com",
+    "product": "Noise Cancelling Headset",
+    "topic": "shipping delay",
+    "message": "The Noise Cancelling Headset I received is defective, the screen has dead pixels.",
+    "created_at": "2026-06-28T13:52:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00090",
+    "customer_email": "customer90@example.com",
+    "product": "Noise Cancelling Headset",
+    "topic": "refund request",
+    "message": "Is my Noise Cancelling Headset still under warranty? It broke after 3 months.",
+    "created_at": "2026-06-20T18:19:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00157",
+    "customer_email": "customer157@example.com",
+    "product": "Laptop Pro 14",
+    "topic": "shipping delay",
+    "message": "I want a refund for my Laptop Pro 14, it stopped working after 2 days.",
+    "created_at": "2026-06-14T14:44:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00138",
+    "customer_email": "customer138@example.com",
+    "product": "USB-C Dock",
+    "topic": "warranty claim",
+    "message": "I want a refund for my USB-C Dock, it stopped working after 2 days.",
+    "created_at": "2026-06-16T20:45:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00046",
+    "customer_email": "customer46@example.com",
+    "product": "Mechanical Keyboard K2",
+    "topic": "login issue",
+    "message": "I want a refund for my Mechanical Keyboard K2, it stopped working after 2 days.",
+    "created_at": "2026-06-06T08:29:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-BAD007",
+    "customer_email": "empty7@example.com",
+    "product": "USB-C Dock",
+    "topic": "refund request",
+    "message": "",
+    "created_at": "2026-06-19T21:31:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00049",
+    "customer_email": "customer49@example.com",
+    "product": "Wireless Mouse X1",
+    "topic": "shipping delay",
+    "message": "I can't log into my account to track my Wireless Mouse X1 order.",
+    "created_at": "2026-06-06T12:00:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00031",
+    "customer_email": "customer31@example.com",
+    "product": "4K Monitor 27in",
+    "topic": "shipping delay",
+    "message": "I want a refund for my 4K Monitor 27in, it stopped working after 2 days.",
+    "created_at": "2026-06-08T18:05:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00014",
+    "customer_email": "customer14@example.com",
+    "product": "Noise Cancelling Headset",
+    "topic": "billing question",
+    "message": "My order for Noise Cancelling Headset is delayed, can you check the status?",
+    "created_at": "2026-06-21T05:34:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00147",
+    "customer_email": "customer147@example.com",
+    "product": "USB-C Dock",
+    "topic": "product defect",
+    "message": "I want a refund for my USB-C Dock, it stopped working after 2 days.",
+    "created_at": "2026-06-02T01:35:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00110",
+    "customer_email": "customer110@example.com",
+    "product": "Noise Cancelling Headset",
+    "topic": "billing question",
+    "message": "My order for Noise Cancelling Headset is delayed, can you check the status?",
+    "created_at": "2026-06-13T15:00:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00050",
+    "customer_email": "customer50@example.com",
+    "product": "4K Monitor 27in",
+    "topic": "product defect",
+    "message": "I can't log into my account to track my 4K Monitor 27in order.",
+    "created_at": "2026-06-14T22:46:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00169",
+    "customer_email": "customer169@example.com",
+    "product": "Wireless Mouse X1",
+    "topic": "login issue",
+    "message": "I was charged twice for my Wireless Mouse X1, please fix my billing.",
+    "created_at": "2026-06-21T15:05:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00078",
+    "customer_email": "customer78@example.com",
+    "product": "Wireless Mouse X1",
+    "topic": "login issue",
+    "message": "I want a refund for my Wireless Mouse X1, it stopped working after 2 days.",
+    "created_at": "2026-06-12T09:52:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00117",
+    "customer_email": "customer117@example.com",
+    "product": "4K Monitor 27in",
+    "topic": "product defect",
+    "message": "I can't log into my account to track my 4K Monitor 27in order.",
+    "created_at": "2026-06-07T14:20:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00065",
+    "customer_email": "customer65@example.com",
+    "product": "4K Monitor 27in",
+    "topic": "shipping delay",
+    "message": "My order for 4K Monitor 27in is delayed, can you check the status?",
+    "created_at": "2026-06-24T17:09:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00109",
+    "customer_email": "customer109@example.com",
+    "product": "Mechanical Keyboard K2",
+    "topic": "shipping delay",
+    "message": "I can't log into my account to track my Mechanical Keyboard K2 order.",
+    "created_at": "2026-06-07T13:24:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00166",
+    "customer_email": "customer166@example.com",
+    "product": "USB-C Dock",
+    "topic": "shipping delay",
+    "message": "The USB-C Dock I received is defective, the screen has dead pixels.",
+    "created_at": "2026-06-03T07:43:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00089",
+    "customer_email": "customer89@example.com",
+    "product": "4K Monitor 27in",
+    "topic": "refund request",
+    "message": "I was charged twice for my 4K Monitor 27in, please fix my billing.",
+    "created_at": "2026-06-07T13:42:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "",
+    "customer_email": "bad20@example.com",
+    "product": "Noise Cancelling Headset",
+    "topic": "billing question",
+    "message": "Missing id test",
+    "created_at": "2026-06-05T13:55:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00019",
+    "customer_email": "customer19@example.com",
+    "product": "Noise Cancelling Headset",
+    "topic": "refund request",
+    "message": "I can't log into my account to track my Noise Cancelling Headset order.",
+    "created_at": "2026-06-09T04:15:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00041",
+    "customer_email": "customer41@example.com",
+    "product": "USB-C Dock",
+    "topic": "warranty claim",
+    "message": "I want a refund for my USB-C Dock, it stopped working after 2 days.",
+    "created_at": "2026-06-30T18:36:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00175",
+    "customer_email": "customer175@example.com",
+    "product": "Mechanical Keyboard K2",
+    "topic": "login issue",
+    "message": "Is my Mechanical Keyboard K2 still under warranty? It broke after 3 months.",
+    "created_at": "2026-06-25T01:13:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00120",
+    "customer_email": "customer120@example.com",
+    "product": "Laptop Pro 14",
+    "topic": "shipping delay",
+    "message": "Is my Laptop Pro 14 still under warranty? It broke after 3 months.",
+    "created_at": "2026-06-25T00:15:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00003",
+    "customer_email": "customer3@example.com",
+    "product": "Laptop Pro 14",
+    "topic": "login issue",
+    "message": "I was charged twice for my Laptop Pro 14, please fix my billing.",
+    "created_at": "2026-06-02T00:05:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00142",
+    "customer_email": "customer142@example.com",
+    "product": "Noise Cancelling Headset",
+    "topic": "product defect",
+    "message": "I can't log into my account to track my Noise Cancelling Headset order.",
+    "created_at": "2026-06-10T08:14:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00118",
+    "customer_email": "customer118@example.com",
+    "product": "Mechanical Keyboard K2",
+    "topic": "login issue",
+    "message": "The Mechanical Keyboard K2 I received is defective, the screen has dead pixels.",
+    "created_at": "2026-06-09T02:30:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00066",
+    "customer_email": "customer66@example.com",
+    "product": "4K Monitor 27in",
+    "topic": "refund request",
+    "message": "I was charged twice for my 4K Monitor 27in, please fix my billing.",
+    "created_at": "2026-06-23T10:13:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00119",
+    "customer_email": "customer119@example.com",
+    "product": "Noise Cancelling Headset",
+    "topic": "shipping delay",
+    "message": "I was charged twice for my Noise Cancelling Headset, please fix my billing.",
+    "created_at": "2026-07-01T11:14:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00060",
+    "customer_email": "customer60@example.com",
+    "product": "Laptop Pro 14",
+    "topic": "billing question",
+    "message": "I can't log into my account to track my Laptop Pro 14 order.",
+    "created_at": "2026-06-19T03:04:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00037",
+    "customer_email": "customer37@example.com",
+    "product": "Wireless Mouse X1",
+    "topic": "shipping delay",
+    "message": "I want a refund for my Wireless Mouse X1, it stopped working after 2 days.",
+    "created_at": "2026-06-11T00:37:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00128",
+    "customer_email": "customer128@example.com",
+    "product": "4K Monitor 27in",
+    "topic": "login issue",
+    "message": "I was charged twice for my 4K Monitor 27in, please fix my billing.",
+    "created_at": "2026-06-22T11:04:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00062",
+    "customer_email": "customer62@example.com",
+    "product": "Wireless Mouse X1",
+    "topic": "product defect",
+    "message": "The Wireless Mouse X1 I received is defective, the screen has dead pixels.",
+    "created_at": "2026-06-06T14:53:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-BAD006",
+    "customer_email": "not-an-email",
+    "product": "Laptop Pro 14",
+    "topic": "login issue",
+    "message": "Bad email test",
+    "created_at": "2026-06-10T23:19:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "",
+    "customer_email": "bad10@example.com",
+    "product": "USB-C Dock",
+    "topic": "billing question",
+    "message": "Missing id test",
+    "created_at": "2026-06-13T14:59:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00045",
+    "customer_email": "customer45@example.com",
+    "product": "Noise Cancelling Headset",
+    "topic": "shipping delay",
+    "message": "The Noise Cancelling Headset I received is defective, the screen has dead pixels.",
+    "created_at": "2026-06-08T06:12:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00044",
+    "customer_email": "customer44@example.com",
+    "product": "Laptop Pro 14",
+    "topic": "warranty claim",
+    "message": "Is my Laptop Pro 14 still under warranty? It broke after 3 months.",
+    "created_at": "2026-06-21T03:03:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00047",
+    "customer_email": "customer47@example.com",
+    "product": "Laptop Pro 14",
+    "topic": "billing question",
+    "message": "I can't log into my account to track my Laptop Pro 14 order.",
+    "created_at": "2026-06-04T01:41:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00145",
+    "customer_email": "customer145@example.com",
+    "product": "USB-C Dock",
+    "topic": "billing question",
+    "message": "I was charged twice for my USB-C Dock, please fix my billing.",
+    "created_at": "2026-06-10T03:53:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00106",
+    "customer_email": "customer106@example.com",
+    "product": "4K Monitor 27in",
+    "topic": "product defect",
+    "message": "I want a refund for my 4K Monitor 27in, it stopped working after 2 days.",
+    "created_at": "2026-06-11T10:57:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00136",
+    "customer_email": "customer136@example.com",
+    "product": "4K Monitor 27in",
+    "topic": "billing question",
+    "message": "The 4K Monitor 27in I received is defective, the screen has dead pixels.",
+    "created_at": "2026-06-23T08:35:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00063",
+    "customer_email": "customer63@example.com",
+    "product": "Noise Cancelling Headset",
+    "topic": "billing question",
+    "message": "The Noise Cancelling Headset I received is defective, the screen has dead pixels.",
+    "created_at": "2026-06-26T20:33:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00038",
+    "customer_email": "customer38@example.com",
+    "product": "Wireless Mouse X1",
+    "topic": "refund request",
+    "message": "I was charged twice for my Wireless Mouse X1, please fix my billing.",
+    "created_at": "2026-06-01T02:45:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00111",
+    "customer_email": "customer111@example.com",
+    "product": "4K Monitor 27in",
+    "topic": "login issue",
+    "message": "I can't log into my account to track my 4K Monitor 27in order.",
+    "created_at": "2026-06-18T23:47:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00096",
+    "customer_email": "customer96@example.com",
+    "product": "Wireless Mouse X1",
+    "topic": "shipping delay",
+    "message": "My order for Wireless Mouse X1 is delayed, can you check the status?",
+    "created_at": "2026-06-08T15:39:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00092",
+    "customer_email": "customer92@example.com",
+    "product": "USB-C Dock",
+    "topic": "product defect",
+    "message": "Is my USB-C Dock still under warranty? It broke after 3 months.",
+    "created_at": "2026-06-15T14:28:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00076",
+    "customer_email": "customer76@example.com",
+    "product": "Mechanical Keyboard K2",
+    "topic": "warranty claim",
+    "message": "Is my Mechanical Keyboard K2 still under warranty? It broke after 3 months.",
+    "created_at": "2026-06-26T07:17:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00015",
+    "customer_email": "customer15@example.com",
+    "product": "Wireless Mouse X1",
+    "topic": "login issue",
+    "message": "I want a refund for my Wireless Mouse X1, it stopped working after 2 days.",
+    "created_at": "2026-06-13T08:59:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00084",
+    "customer_email": "customer84@example.com",
+    "product": "Wireless Mouse X1",
+    "topic": "shipping delay",
+    "message": "The Wireless Mouse X1 I received is defective, the screen has dead pixels.",
+    "created_at": "2026-06-23T13:00:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00012",
+    "customer_email": "customer12@example.com",
+    "product": "Mechanical Keyboard K2",
+    "topic": "login issue",
+    "message": "The Mechanical Keyboard K2 I received is defective, the screen has dead pixels.",
+    "created_at": "2026-06-21T11:10:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00008",
+    "customer_email": "customer8@example.com",
+    "product": "4K Monitor 27in",
+    "topic": "billing question",
+    "message": "The 4K Monitor 27in I received is defective, the screen has dead pixels.",
+    "created_at": "2026-06-09T01:46:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00077",
+    "customer_email": "customer77@example.com",
+    "product": "Noise Cancelling Headset",
+    "topic": "login issue",
+    "message": "My order for Noise Cancelling Headset is delayed, can you check the status?",
+    "created_at": "2026-06-28T01:54:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00043",
+    "customer_email": "customer43@example.com",
+    "product": "Mechanical Keyboard K2",
+    "topic": "login issue",
+    "message": "The Mechanical Keyboard K2 I received is defective, the screen has dead pixels.",
+    "created_at": "2026-06-14T14:55:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00114",
+    "customer_email": "customer114@example.com",
+    "product": "Noise Cancelling Headset",
+    "topic": "login issue",
+    "message": "I want a refund for my Noise Cancelling Headset, it stopped working after 2 days.",
+    "created_at": "2026-06-30T04:39:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00171",
+    "customer_email": "customer171@example.com",
+    "product": "4K Monitor 27in",
+    "topic": "warranty claim",
+    "message": "I can't log into my account to track my 4K Monitor 27in order.",
+    "created_at": "2026-06-16T09:42:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00163",
+    "customer_email": "customer163@example.com",
+    "product": "USB-C Dock",
+    "topic": "login issue",
+    "message": "The USB-C Dock I received is defective, the screen has dead pixels.",
+    "created_at": "2026-06-04T14:44:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00026",
+    "customer_email": "customer26@example.com",
+    "product": "4K Monitor 27in",
+    "topic": "product defect",
+    "message": "My order for 4K Monitor 27in is delayed, can you check the status?",
+    "created_at": "2026-06-14T05:29:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00112",
+    "customer_email": "customer112@example.com",
+    "product": "USB-C Dock",
+    "topic": "login issue",
+    "message": "I want a refund for my USB-C Dock, it stopped working after 2 days.",
+    "created_at": "2026-06-08T08:27:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00024",
+    "customer_email": "customer24@example.com",
+    "product": "USB-C Dock",
+    "topic": "billing question",
+    "message": "The USB-C Dock I received is defective, the screen has dead pixels.",
+    "created_at": "2026-06-28T00:43:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00059",
+    "customer_email": "customer59@example.com",
+    "product": "Wireless Mouse X1",
+    "topic": "warranty claim",
+    "message": "Is my Wireless Mouse X1 still under warranty? It broke after 3 months.",
+    "created_at": "2026-06-10T14:20:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00074",
+    "customer_email": "customer74@example.com",
+    "product": "USB-C Dock",
+    "topic": "billing question",
+    "message": "I can't log into my account to track my USB-C Dock order.",
+    "created_at": "2026-06-24T04:59:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00176",
+    "customer_email": "customer176@example.com",
+    "product": "USB-C Dock",
+    "topic": "product defect",
+    "message": "I want a refund for my USB-C Dock, it stopped working after 2 days.",
+    "created_at": "2026-06-15T22:31:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00162",
+    "customer_email": "customer162@example.com",
+    "product": "Laptop Pro 14",
+    "topic": "refund request",
+    "message": "My order for Laptop Pro 14 is delayed, can you check the status?",
+    "created_at": "2026-06-26T09:38:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00061",
+    "customer_email": "customer61@example.com",
+    "product": "Wireless Mouse X1",
+    "topic": "product defect",
+    "message": "I was charged twice for my Wireless Mouse X1, please fix my billing.",
+    "created_at": "2026-06-05T11:56:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00018",
+    "customer_email": "customer18@example.com",
+    "product": "USB-C Dock",
+    "topic": "product defect",
+    "message": "Is my USB-C Dock still under warranty? It broke after 3 months.",
+    "created_at": "2026-06-07T20:31:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00159",
+    "customer_email": "customer159@example.com",
+    "product": "Noise Cancelling Headset",
+    "topic": "shipping delay",
+    "message": "I can't log into my account to track my Noise Cancelling Headset order.",
+    "created_at": "2026-06-22T07:59:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00010",
+    "customer_email": "customer10@example.com",
+    "product": "USB-C Dock",
+    "topic": "billing question",
+    "message": "The USB-C Dock I received is defective, the screen has dead pixels.",
+    "created_at": "2026-06-07T22:04:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00139",
+    "customer_email": "customer139@example.com",
+    "product": "Mechanical Keyboard K2",
+    "topic": "shipping delay",
+    "message": "My order for Mechanical Keyboard K2 is delayed, can you check the status?",
+    "created_at": "2026-06-10T07:25:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00125",
+    "customer_email": "customer125@example.com",
+    "product": "USB-C Dock",
+    "topic": "login issue",
+    "message": "Is my USB-C Dock still under warranty? It broke after 3 months.",
+    "created_at": "2026-06-13T22:12:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00161",
+    "customer_email": "customer161@example.com",
+    "product": "USB-C Dock",
+    "topic": "warranty claim",
+    "message": "I want a refund for my USB-C Dock, it stopped working after 2 days.",
+    "created_at": "2026-06-05T08:52:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00082",
+    "customer_email": "customer82@example.com",
+    "product": "4K Monitor 27in",
+    "topic": "shipping delay",
+    "message": "My order for 4K Monitor 27in is delayed, can you check the status?",
+    "created_at": "2026-06-20T13:22:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00098",
+    "customer_email": "customer98@example.com",
+    "product": "Mechanical Keyboard K2",
+    "topic": "login issue",
+    "message": "I can't log into my account to track my Mechanical Keyboard K2 order.",
+    "created_at": "2026-06-08T04:41:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00137",
+    "customer_email": "customer137@example.com",
+    "product": "USB-C Dock",
+    "topic": "shipping delay",
+    "message": "I want a refund for my USB-C Dock, it stopped working after 2 days.",
+    "created_at": "2026-06-08T23:26:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00173",
+    "customer_email": "customer173@example.com",
+    "product": "Laptop Pro 14",
+    "topic": "billing question",
+    "message": "I can't log into my account to track my Laptop Pro 14 order.",
+    "created_at": "2026-06-27T00:42:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00085",
+    "customer_email": "customer85@example.com",
+    "product": "USB-C Dock",
+    "topic": "warranty claim",
+    "message": "Is my USB-C Dock still under warranty? It broke after 3 months.",
+    "created_at": "2026-07-01T23:47:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00021",
+    "customer_email": "customer21@example.com",
+    "product": "Mechanical Keyboard K2",
+    "topic": "refund request",
+    "message": "The Mechanical Keyboard K2 I received is defective, the screen has dead pixels.",
+    "created_at": "2026-06-05T16:31:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00167",
+    "customer_email": "customer167@example.com",
+    "product": "USB-C Dock",
+    "topic": "warranty claim",
+    "message": "My order for USB-C Dock is delayed, can you check the status?",
+    "created_at": "2026-06-27T08:36:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00102",
+    "customer_email": "customer102@example.com",
+    "product": "4K Monitor 27in",
+    "topic": "billing question",
+    "message": "I can't log into my account to track my 4K Monitor 27in order.",
+    "created_at": "2026-06-27T23:57:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00178",
+    "customer_email": "customer178@example.com",
+    "product": "4K Monitor 27in",
+    "topic": "shipping delay",
+    "message": "I was charged twice for my 4K Monitor 27in, please fix my billing.",
+    "created_at": "2026-06-18T13:05:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00160",
+    "customer_email": "customer160@example.com",
+    "product": "Noise Cancelling Headset",
+    "topic": "warranty claim",
+    "message": "I was charged twice for my Noise Cancelling Headset, please fix my billing.",
+    "created_at": "2026-06-26T06:27:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00087",
+    "customer_email": "customer87@example.com",
+    "product": "USB-C Dock",
+    "topic": "warranty claim",
+    "message": "The USB-C Dock I received is defective, the screen has dead pixels.",
+    "created_at": "2026-06-28T03:46:00",
+    "priority": "medium"
+  },
+  {
+    "ticket_id": "TCK-00068",
+    "customer_email": "customer68@example.com",
+    "product": "Laptop Pro 14",
+    "topic": "login issue",
+    "message": "Is my Laptop Pro 14 still under warranty? It broke after 3 months.",
+    "created_at": "2026-06-27T08:02:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00121",
+    "customer_email": "customer121@example.com",
+    "product": "Laptop Pro 14",
+    "topic": "refund request",
+    "message": "I was charged twice for my Laptop Pro 14, please fix my billing.",
+    "created_at": "2026-06-08T04:30:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00020",
+    "customer_email": "customer20@example.com",
+    "product": "USB-C Dock",
+    "topic": "product defect",
+    "message": "I was charged twice for my USB-C Dock, please fix my billing.",
+    "created_at": "2026-06-24T18:27:00",
+    "priority": "high"
+  },
+  {
+    "ticket_id": "TCK-00040",
+    "customer_email": "customer40@example.com",
+    "product": "Laptop Pro 14",
+    "topic": "refund request",
+    "message": "I was charged twice for my Laptop Pro 14, please fix my billing.",
+    "created_at": "2026-06-09T21:31:00",
+    "priority": "low"
+  },
+  {
+    "ticket_id": "TCK-00168",
+    "customer_email": "customer168@example.com",
+    "product": "Wireless Mouse X1",
+    "topic": "billing question",
+    "message": "I can't log into my account to track my Wireless Mouse X1 order.",
+    "created_at": "2026-06-21T14:58:00",
+    "priority": "medium"
+  }
+]

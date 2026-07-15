@@ -1,0 +1,38 @@
+[
+  {
+    "product": "Wireless Mouse X1",
+    "ticket_count": 31,
+    "top_topic": "login issue",
+    "high_priority_count": 12
+  },
+  {
+    "product": "USB-C Dock",
+    "ticket_count": 36,
+    "top_topic": "login issue",
+    "high_priority_count": 10
+  },
+  {
+    "product": "Mechanical Keyboard K2",
+    "ticket_count": 20,
+    "top_topic": "login issue",
+    "high_priority_count": 11
+  },
+  {
+    "product": "Noise Cancelling Headset",
+    "ticket_count": 32,
+    "top_topic": "shipping delay",
+    "high_priority_count": 10
+  },
+  {
+    "product": "Laptop Pro 14",
+    "ticket_count": 33,
+    "top_topic": "refund request",
+    "high_priority_count": 13
+  },
+  {
+    "product": "4K Monitor 27in",
+    "ticket_count": 28,
+    "top_topic": "shipping delay",
+    "high_priority_count": 11
+  }
+]

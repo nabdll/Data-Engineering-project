@@ -1,0 +1,285 @@
+[
+  {
+    "row": {
+      "ticket_id": "TCK-BAD012",
+      "customer_email": "empty12@example.com",
+      "product": "Wireless Mouse X1",
+      "topic": "refund request",
+      "message": "",
+      "created_at": "2026-06-19T12:14:00",
+      "priority": "high"
+    },
+    "reasons": [
+      "completeness: missing/empty ['message']"
+    ]
+  },
+  {
+    "row": {
+      "ticket_id": "TCK-BAD018",
+      "customer_email": "pri18@example.com",
+      "product": "Laptop Pro 14",
+      "topic": "warranty claim",
+      "message": "Bad priority test",
+      "created_at": "2026-06-28T14:06:00",
+      "priority": "URGENT!!"
+    },
+    "reasons": [
+      "validity: priority 'URGENT!!' not in ['high', 'low', 'medium']"
+    ]
+  },
+  {
+    "row": {
+      "ticket_id": "TCK-BAD011",
+      "customer_email": "not-an-email",
+      "product": "4K Monitor 27in",
+      "topic": "login issue",
+      "message": "Bad email test",
+      "created_at": "2026-06-28T06:44:00",
+      "priority": "medium"
+    },
+    "reasons": [
+      "validity: invalid email format: 'not-an-email'"
+    ]
+  },
+  {
+    "row": {
+      "ticket_id": "TCK-00001",
+      "customer_email": "customer1@example.com",
+      "product": "Noise Cancelling Headset",
+      "topic": "shipping delay",
+      "message": "My order for Noise Cancelling Headset is delayed, can you check the status?",
+      "created_at": "2026-06-24T08:15:00",
+      "priority": "low"
+    },
+    "reasons": [
+      "uniqueness: duplicate ticket_id 'TCK-00001'"
+    ]
+  },
+  {
+    "row": {
+      "ticket_id": "TCK-BAD008",
+      "customer_email": "pri8@example.com",
+      "product": "Wireless Mouse X1",
+      "topic": "warranty claim",
+      "message": "Bad priority test",
+      "created_at": "2026-06-15T17:30:00",
+      "priority": "URGENT!!"
+    },
+    "reasons": [
+      "validity: priority 'URGENT!!' not in ['high', 'low', 'medium']"
+    ]
+  },
+  {
+    "row": {
+      "ticket_id": "TCK-BAD003",
+      "customer_email": "pri3@example.com",
+      "product": "USB-C Dock",
+      "topic": "warranty claim",
+      "message": "Bad priority test",
+      "created_at": "2026-06-17T23:56:00",
+      "priority": "URGENT!!"
+    },
+    "reasons": [
+      "validity: priority 'URGENT!!' not in ['high', 'low', 'medium']"
+    ]
+  },
+  {
+    "row": {
+      "ticket_id": "TCK-BAD017",
+      "customer_email": "empty17@example.com",
+      "product": "USB-C Dock",
+      "topic": "refund request",
+      "message": "",
+      "created_at": "2026-07-01T18:21:00",
+      "priority": "high"
+    },
+    "reasons": [
+      "completeness: missing/empty ['message']"
+    ]
+  },
+  {
+    "row": {
+      "ticket_id": "TCK-BAD001",
+      "customer_email": "not-an-email",
+      "product": "Mechanical Keyboard K2",
+      "topic": "login issue",
+      "message": "Bad email test",
+      "created_at": "2026-06-08T14:35:00",
+      "priority": "medium"
+    },
+    "reasons": [
+      "validity: invalid email format: 'not-an-email'"
+    ]
+  },
+  {
+    "row": {
+      "ticket_id": "TCK-BAD013",
+      "customer_email": "pri13@example.com",
+      "product": "Mechanical Keyboard K2",
+      "topic": "warranty claim",
+      "message": "Bad priority test",
+      "created_at": "2026-06-02T10:47:00",
+      "priority": "URGENT!!"
+    },
+    "reasons": [
+      "validity: priority 'URGENT!!' not in ['high', 'low', 'medium']"
+    ]
+  },
+  {
+    "row": {
+      "ticket_id": "TCK-00001",
+      "customer_email": "dup14@example.com",
+      "product": "Mechanical Keyboard K2",
+      "topic": "shipping delay",
+      "message": "Duplicate id test",
+      "created_at": "2026-06-23T12:24:00",
+      "priority": "low"
+    },
+    "reasons": [
+      "uniqueness: duplicate ticket_id 'TCK-00001'"
+    ]
+  },
+  {
+    "row": {
+      "ticket_id": "TCK-BAD016",
+      "customer_email": "not-an-email",
+      "product": "Mechanical Keyboard K2",
+      "topic": "login issue",
+      "message": "Bad email test",
+      "created_at": "2026-07-01T01:08:00",
+      "priority": "medium"
+    },
+    "reasons": [
+      "validity: invalid email format: 'not-an-email'"
+    ]
+  },
+  {
+    "row": {
+      "ticket_id": "TCK-00001",
+      "customer_email": "dup19@example.com",
+      "product": "USB-C Dock",
+      "topic": "shipping delay",
+      "message": "Duplicate id test",
+      "created_at": "2026-06-30T14:00:00",
+      "priority": "low"
+    },
+    "reasons": [
+      "uniqueness: duplicate ticket_id 'TCK-00001'"
+    ]
+  },
+  {
+    "row": {
+      "ticket_id": "",
+      "customer_email": "bad15@example.com",
+      "product": "Noise Cancelling Headset",
+      "topic": "billing question",
+      "message": "Missing id test",
+      "created_at": "2026-06-26T20:09:00",
+      "priority": "low"
+    },
+    "reasons": [
+      "completeness: missing/empty ['ticket_id']"
+    ]
+  },
+  {
+    "row": {
+      "ticket_id": "",
+      "customer_email": "bad5@example.com",
+      "product": "Mechanical Keyboard K2",
+      "topic": "billing question",
+      "message": "Missing id test",
+      "created_at": "2026-06-11T16:17:00",
+      "priority": "low"
+    },
+    "reasons": [
+      "completeness: missing/empty ['ticket_id']",
+      "uniqueness: duplicate ticket_id ''"
+    ]
+  },
+  {
+    "row": {
+      "ticket_id": "TCK-00001",
+      "customer_email": "dup9@example.com",
+      "product": "4K Monitor 27in",
+      "topic": "shipping delay",
+      "message": "Duplicate id test",
+      "created_at": "2026-06-11T17:48:00",
+      "priority": "low"
+    },
+    "reasons": [
+      "uniqueness: duplicate ticket_id 'TCK-00001'"
+    ]
+  },
+  {
+    "row": {
+      "ticket_id": "TCK-BAD002",
+      "customer_email": "empty2@example.com",
+      "product": "Wireless Mouse X1",
+      "topic": "refund request",
+      "message": "",
+      "created_at": "2026-06-13T06:58:00",
+      "priority": "high"
+    },
+    "reasons": [
+      "completeness: missing/empty ['message']"
+    ]
+  },
+  {
+    "row": {
+      "ticket_id": "TCK-BAD007",
+      "customer_email": "empty7@example.com",
+      "product": "USB-C Dock",
+      "topic": "refund request",
+      "message": "",
+      "created_at": "2026-06-19T21:31:00",
+      "priority": "high"
+    },
+    "reasons": [
+      "completeness: missing/empty ['message']"
+    ]
+  },
+  {
+    "row": {
+      "ticket_id": "",
+      "customer_email": "bad20@example.com",
+      "product": "Noise Cancelling Headset",
+      "topic": "billing question",
+      "message": "Missing id test",
+      "created_at": "2026-06-05T13:55:00",
+      "priority": "low"
+    },
+    "reasons": [
+      "completeness: missing/empty ['ticket_id']",
+      "uniqueness: duplicate ticket_id ''"
+    ]
+  },
+  {
+    "row": {
+      "ticket_id": "TCK-BAD006",
+      "customer_email": "not-an-email",
+      "product": "Laptop Pro 14",
+      "topic": "login issue",
+      "message": "Bad email test",
+      "created_at": "2026-06-10T23:19:00",
+      "priority": "medium"
+    },
+    "reasons": [
+      "validity: invalid email format: 'not-an-email'"
+    ]
+  },
+  {
+    "row": {
+      "ticket_id": "",
+      "customer_email": "bad10@example.com",
+      "product": "USB-C Dock",
+      "topic": "billing question",
+      "message": "Missing id test",
+      "created_at": "2026-06-13T14:59:00",
+      "priority": "low"
+    },
+    "reasons": [
+      "completeness: missing/empty ['ticket_id']",
+      "uniqueness: duplicate ticket_id ''"
+    ]
+  }
+]
