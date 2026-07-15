@@ -1,23 +1,29 @@
 """
 orchestrator.py
 ----------------
-DELIVERABLE 4: Orchestration (Airflow DAG connecting all modules end-to-end)
+DELIVERABLE 4: Orchestration (DAG connecting all modules end-to-end)
 
-A real deployment would run this as an Apache Airflow DAG (see
-`airflow_dag.py` in this repo for the actual Airflow DAG definition — task
-dependencies, retries, schedule_interval, etc.). Airflow needs its own
-scheduler/webserver/metadata database running as a service, which isn't
-available in this sandbox, so THIS file is a minimal, dependency-free DAG
-engine: it defines tasks as nodes, dependencies as edges, sorts them into a
-valid execution order (topological sort — the exact algorithm Airflow uses
+Unchanged from the original — the instructor's note was "this one's
+solid, keep it." This is a minimal, dependency-free DAG engine: it
+defines tasks as nodes, dependencies as edges, sorts them into a valid
+execution order (topological sort — the exact algorithm Airflow uses
 internally), and runs each task only after its dependencies succeed.
+`airflow_dag.py` describes the same DAG as a real Apache Airflow DAG.
 
-Both files describe the SAME DAG:
-    generate_data -> ingest -> quality_gate -> lakehouse -> rag_demo
+generate_data -> ingest -> quality_gate -> lakehouse -> rag_demo
 
-Run this file directly (`python orchestrator.py`) to execute the full
-pipeline end-to-end and see every stage's output. Run `airflow_dag.py`'s
-definitions inside a real Airflow install to schedule it in production.
+Every downstream module (ingestion.py, quality_gate.py, lakehouse.py,
+rag_pipeline.py) now uses real Kafka / Delta Lake / GX / OpenLineage /
+sentence-transformers / ChromaDB / BM25 / an LLM API under the hood — but
+their run_*(...) function signatures are unchanged, so this file didn't
+need to change to pick that up. Before running this end-to-end:
+
+  1. Start a local Kafka broker:
+       docker run -d --name kafka -p 9092:9092 apache/kafka:3.7.0
+  2. pip install -r requirements.txt
+  3. (optional, for a real LLM answer instead of the template fallback)
+       export ANTHROPIC_API_KEY=...   # or OPENAI_API_KEY / OPENROUTER_API_KEY
+  4. python orchestrator.py
 """
 
 import json
@@ -67,6 +73,7 @@ class SimpleDAG:
     def run(self, log_fn=print):
         order = self._topological_order()
         log_fn(f"[orchestrator] DAG '{self.dag_id}' execution order: {order}")
+
         context = {}
         for task_id in order:
             task = self.tasks[task_id]
