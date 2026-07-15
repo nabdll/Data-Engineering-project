@@ -1,56 +1,78 @@
 """
 quality_gate.py
 ----------------
-DELIVERABLE 5: Quality gate (Great Expectations style) + OpenLineage events
+DELIVERABLE 5: Quality gate (real Great Expectations 1.x) + real
+OpenLineage lineage events.
 
-Part A - Quality Gate
-    In production you'd write these checks as a Great Expectations
-    "Expectation Suite" (e.g. expect_column_values_to_not_be_null). We
-    don't have network access to install the `great_expectations` package
-    here, so we implement the SAME four dimensions by hand, in plain
-    Python, so you can see exactly what the library would be doing under
-    the hood:
-        - Completeness : required fields aren't empty/null
-        - Validity     : values match expected patterns/ranges
-        - Uniqueness   : primary key (ticket_id) has no duplicates
-        - Accuracy     : cross-field sanity (e.g. priority is one of the
-                         allowed values)
-    Any row that fails ANY check is quarantined (written to
-    data/quarantine/) instead of being allowed into the Silver layer.
+Part A — Quality Gate
+The four DAMA dimensions (Completeness, Validity, Uniqueness, Accuracy)
+are still checked by hand, row by row, because that's what gives us
+per-row quarantine reasons like "validity: priority 'URGENT!!' not in
+[...]" — that granular traceability is the whole point of the gate and
+Great Expectations' Checkpoint result doesn't hand you that per-row
+string for free.
 
-Part B - Lineage events (OpenLineage-style)
-    OpenLineage defines three event types: START, COMPLETE, FAIL. Real
-    systems POST these as JSON to a lineage server (Marquez). We don't
-    have network access to run Marquez, so we append the same JSON
-    payload shape to a local file (logs/lineage_events.jsonl) — this is
-    exactly what you'd forward to Marquez with one line of code
-    (see README).
+Alongside those hand-rolled checks, we now ALSO run a real GX 1.x
+ExpectationSuite + Checkpoint against the same batch, as an independent,
+industry-standard validation pass. Its aggregate pass/fail result is
+folded into the quality report. If your installed great_expectations
+version has drifted from the fluent 1.x API used below (GX's API moved a
+few times across 1.x minor releases), the checkpoint step logs a warning
+and the hand-rolled checks still run the show — see
+https://docs.greatexpectations.io for the exact API of your version.
+
+Part B — Lineage events (real OpenLineage)
+Real openlineage-python OpenLineageClient, emitting START/COMPLETE/FAIL
+RunEvents through a local FileTransport (logs/lineage_events.jsonl) —
+this is the exact client you'd point at a running Marquez server instead,
+by swapping FileTransport for HttpTransport.
 """
 
 import json
 import re
+import uuid
 from datetime import datetime, timezone
+
+import pandas as pd
+
+from openlineage.client import OpenLineageClient
+from openlineage.client.transport.file import FileConfig, FileTransport
+from openlineage.client.run import Job, Run, RunEvent, RunState
 
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 ALLOWED_PRIORITIES = {"low", "medium", "high"}
 REQUIRED_FIELDS = ["ticket_id", "customer_email", "product", "topic", "message", "created_at", "priority"]
 
+LINEAGE_LOG_PATH = "logs/lineage_events.jsonl"
+JOB_NAMESPACE = "capstone.support_platform"
 
-def emit_lineage_event(event_type, job_name, run_id, extra=None, log_path="logs/lineage_events.jsonl"):
-    """Append one OpenLineage-shaped event. event_type is START, COMPLETE, or FAIL."""
-    payload = {
-        "eventType": event_type,
-        "eventTime": datetime.now(timezone.utc).isoformat(),
-        "run": {"runId": run_id},
-        "job": {"namespace": "capstone.support_platform", "name": job_name},
-        "producer": "capstone-quality-gate",
-    }
-    if extra:
-        payload["extra"] = extra
-    with open(log_path, "a") as f:
-        f.write(json.dumps(payload) + "\n")
-    return payload
 
+def _lineage_client() -> OpenLineageClient:
+    transport = FileTransport(FileConfig(log_file_path=LINEAGE_LOG_PATH))
+    return OpenLineageClient(transport=transport)
+
+
+def emit_lineage_event(event_type: str, job_name: str, run_id: str, extra: dict | None = None):
+    """Emit one real OpenLineage RunEvent. event_type is 'START',
+    'COMPLETE', or 'FAIL' (matches openlineage.client.run.RunState)."""
+    client = _lineage_client()
+    event = RunEvent(
+        eventType=getattr(RunState, event_type),
+        eventTime=datetime.now(timezone.utc).isoformat(),
+        run=Run(runId=run_id, facets=extra or {}),
+        job=Job(namespace=JOB_NAMESPACE, name=job_name),
+        producer="capstone-quality-gate",
+        inputs=[],
+        outputs=[],
+    )
+    client.emit(event)
+    return event
+
+
+# ---------------------------------------------------------------------
+# Part A: hand-rolled per-row checks (kept — this is where the
+# quarantine-with-reasons traceability comes from)
+# ---------------------------------------------------------------------
 
 def check_completeness(row):
     missing = [f for f in REQUIRED_FIELDS if not str(row.get(f, "")).strip()]
@@ -68,7 +90,6 @@ def check_validity(row):
 
 def check_accuracy(row):
     problems = []
-    # created_at should parse as a real ISO timestamp
     try:
         datetime.fromisoformat(row.get("created_at", ""))
     except Exception:
@@ -88,12 +109,79 @@ def check_uniqueness(rows):
     return dupes
 
 
+# ---------------------------------------------------------------------
+# Part B: real Great Expectations 1.x ExpectationSuite + Checkpoint
+# ---------------------------------------------------------------------
+
+def run_gx_checkpoint(rows: list[dict], run_id: str, log_fn=print) -> dict | None:
+    """Runs a real GX 1.x Checkpoint over the batch as an independent
+    validation pass. Returns the checkpoint's summary dict, or None if GX
+    couldn't run (missing/incompatible install) — the hand-rolled checks
+    above are the pipeline's actual gate either way, so this is additive
+    evidence, not a hard dependency."""
+    try:
+        import great_expectations as gx
+        from great_expectations.expectations import (
+            ExpectColumnValuesToNotBeNull,
+            ExpectColumnValuesToBeInSet,
+            ExpectColumnValuesToMatchRegex,
+            ExpectColumnValuesToBeUnique,
+        )
+
+        df = pd.DataFrame(rows)
+
+        context = gx.get_context(mode="ephemeral")
+
+        suite = context.suites.add(gx.ExpectationSuite(name=f"ticket_quality_suite_{run_id}"))
+        suite.add_expectation(ExpectColumnValuesToNotBeNull(column="ticket_id"))
+        suite.add_expectation(ExpectColumnValuesToBeUnique(column="ticket_id"))
+        suite.add_expectation(ExpectColumnValuesToNotBeNull(column="customer_email"))
+        suite.add_expectation(
+            ExpectColumnValuesToMatchRegex(column="customer_email", regex=EMAIL_RE.pattern)
+        )
+        suite.add_expectation(
+            ExpectColumnValuesToBeInSet(column="priority", value_set=sorted(ALLOWED_PRIORITIES))
+        )
+        suite.add_expectation(ExpectColumnValuesToNotBeNull(column="message"))
+
+        data_source = context.data_sources.add_pandas(f"pandas_{run_id}")
+        data_asset = data_source.add_dataframe_asset(name="tickets")
+        batch_definition = data_asset.add_batch_definition_whole_dataframe("batch")
+
+        validation_definition = context.validation_definitions.add(
+            gx.ValidationDefinition(name=f"ticket_validation_{run_id}", data=batch_definition, suite=suite)
+        )
+        checkpoint = context.checkpoints.add(
+            gx.Checkpoint(name=f"ticket_checkpoint_{run_id}", validation_definitions=[validation_definition])
+        )
+        result = checkpoint.run(batch_parameters={"dataframe": df})
+
+        summary = {
+            "success": bool(result.success),
+            "statistics": getattr(result, "statistics", None),
+        }
+        log_fn(f"[quality_gate] GX checkpoint success={summary['success']}")
+        return summary
+
+    except Exception as e:  # GX 1.x API surface has moved between minor
+        # releases — don't let a version mismatch take down the whole
+        # pipeline; the hand-rolled checks are still the real gate.
+        log_fn(f"[quality_gate] WARNING: GX checkpoint could not run ({e}); "
+               f"continuing with hand-rolled checks only")
+        return None
+
+
+# ---------------------------------------------------------------------
+# Orchestration of both
+# ---------------------------------------------------------------------
+
 def run_quality_gate(rows: list[dict], run_id: str, log_fn=print):
     emit_lineage_event("START", "quality_gate", run_id)
 
+    gx_summary = run_gx_checkpoint(rows, run_id, log_fn=log_fn)
+
     dupes = check_uniqueness(rows)
     seen_ids = set()
-
     clean_rows = []
     quarantined = []
     failure_counts = {"completeness": 0, "validity": 0, "accuracy": 0, "uniqueness": 0}
@@ -137,6 +225,7 @@ def run_quality_gate(rows: list[dict], run_id: str, log_fn=print):
         "quarantined": len(quarantined),
         "pass_rate_pct": round(100 * len(clean_rows) / total, 2) if total else 0,
         "dimension_failure_counts": failure_counts,
+        "great_expectations_checkpoint": gx_summary,
         "status": "PASS" if len(quarantined) == 0 else (
             "FAIL" if len(clean_rows) / total < 0.7 else "PASS_WITH_WARNINGS"
         ),
@@ -158,7 +247,7 @@ if __name__ == "__main__":
     with open("data/bronze/tickets_bronze.json") as f:
         rows = json.load(f)
 
-    run_id = f"qg-{int(datetime.now().timestamp())}"
+    run_id = f"qg-{uuid.uuid4().hex[:8]}"
     clean, quarantined, report = run_quality_gate(rows, run_id)
 
     with open("data/silver/tickets_silver.json", "w") as f:
