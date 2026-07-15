@@ -1,20 +1,33 @@
 """
 airflow_dag.py
 --------------
-This is the REAL Apache Airflow DAG definition for this pipeline — the
-production version of what `orchestrator.py` simulates locally.
+The REAL Apache Airflow DAG definition for this pipeline — the
+production version of what `orchestrator.py` runs locally.
 
-This file is NOT executed as part of the demo run (this environment has no
-Airflow scheduler/webserver/metadata DB installed). It's included so you
-can show the instructor the actual Airflow code and explain how the same
-5-stage pipeline (generate -> ingest -> quality_gate -> lakehouse -> rag)
-maps onto Airflow's PythonOperator + task dependency syntax.
+This file's logic is unchanged (the instructor's note was that it was
+"correctly written but never actually run") — the fix here isn't code,
+it's actually executing it once and keeping proof of the run.
 
-To actually run this for real:
-    pip install apache-airflow
+How to actually run this for real and capture proof:
+
+    pip install -r requirements-airflow-optional.txt   # apache-airflow
+    export AIRFLOW_HOME=~/airflow
+    airflow db migrate                # first time only (Airflow 2.7+)
+    cp airflow_dag.py $AIRFLOW_HOME/dags/
     airflow standalone
-    # drop this file into the airflow "dags/" folder
-    # the DAG "capstone_support_platform" will appear in the Airflow UI
+    # open the printed URL, trigger "capstone_support_platform", let it
+    # finish, then screenshot the successful DAG run in the UI.
+
+Or, faster (no webserver, no UI, just proves the DAG object is valid and
+runs task-by-task) using Airflow's dag.test() helper:
+
+    python -c "
+    from airflow_dag import dag
+    dag.test()
+    "
+
+Either way, keep the terminal output / screenshot as the deliverable
+proof this was actually executed, not just written.
 """
 
 from datetime import datetime
@@ -47,7 +60,6 @@ with DAG(
     def _generate_data(**context):
         tickets = data_generator.generate_tickets()
         kb = data_generator.generate_kb_articles()
-        # push small IDs/counts via XCom, not full DataFrames
         context["ti"].xcom_push(key="ticket_count", value=len(tickets))
         return {"tickets": tickets, "kb": kb}
 
@@ -84,5 +96,4 @@ with DAG(
     lakehouse_task = PythonOperator(task_id="lakehouse", python_callable=_lakehouse)
     rag_demo = PythonOperator(task_id="rag_demo", python_callable=_rag_demo)
 
-    # dependency graph, identical shape to orchestrator.py's SimpleDAG
     generate_data >> ingest >> quality_gate_task >> lakehouse_task >> rag_demo
