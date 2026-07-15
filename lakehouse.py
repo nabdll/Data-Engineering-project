@@ -2,32 +2,35 @@
 lakehouse.py
 ------------
 DELIVERABLE 2: Lakehouse (bronze / silver / gold zones + MERGE + schema
-enforcement)
-
-In production this would be Delta Lake tables on S3 (bronze = raw landing,
-silver = cleaned/validated, gold = business-ready aggregates), using
-`MERGE INTO` for upserts and a declared schema that rejects drift. We don't
-have network access to install the `deltalake` package here, so this
-module implements the exact same three-zone pattern and MERGE (upsert)
-semantics using pandas + local JSON files. The README shows the one-line
-swap to real `deltalake.write_deltalake(..., mode="merge")` if you deploy
-this for real.
+enforcement) — real Delta Lake, via the `deltalake` package.
 
 Zones:
-    bronze -> raw accepted events, no transformation (written by ingestion.py)
-    silver -> cleaned + quality-passed rows (written by quality_gate.py)
-    gold   -> business-ready aggregates for reporting/analytics + the table
-              the RAG layer reads product/topic stats from
+  bronze -> raw accepted events, no transformation (written by ingestion.py)
+  silver -> cleaned + quality-passed rows (written by quality_gate.py)
+  gold   -> business-ready aggregates, stored as a real Delta table at
+            data/gold/product_stats_gold (a directory: Delta stores data
+            as Parquet files + a _delta_log/ transaction log, not a
+            single JSON file)
 
-GOLD_SCHEMA below is enforced on write — if a column is missing or of the
-wrong type, the write is rejected. This is what "schema enforcement" means
-in Delta Lake: the table refuses to accept malformed data.
+Schema enforcement is Delta's native behavior: write_deltalake() with
+mode="merge" (via DeltaTable.merge()) validates the incoming Arrow/pandas
+schema against the table's declared schema and raises on mismatch — we no
+longer need a hand-written isinstance() check, we let the table itself
+refuse malformed writes. We still run enforce_schema() first as a fast,
+readable pre-check with clear error messages, but Delta's own schema
+enforcement is the real gate.
+
+Upsert semantics: DeltaTable.merge() with when_matched_update_all() /
+when_not_matched_insert_all() is Delta's real `MERGE INTO ... WHEN MATCHED
+THEN UPDATE ... WHEN NOT MATCHED THEN INSERT` — this is exactly what a
+production Delta Lake deployment on S3/ADLS would run.
 """
 
-import json
 import os
 from collections import Counter
-from datetime import datetime, timezone
+
+import pandas as pd
+from deltalake import DeltaTable, write_deltalake
 
 GOLD_SCHEMA = {
     "product": str,
@@ -36,8 +39,13 @@ GOLD_SCHEMA = {
     "high_priority_count": int,
 }
 
+GOLD_TABLE_PATH = "data/gold/product_stats_gold"
+
 
 def enforce_schema(row: dict, schema: dict) -> list[str]:
+    """Fast pre-check with human-readable errors before we even build the
+    DataFrame. Delta's own schema enforcement (triggered inside
+    run_lakehouse below) is what actually protects the table."""
     errors = []
     for field, expected_type in schema.items():
         if field not in row:
@@ -47,20 +55,10 @@ def enforce_schema(row: dict, schema: dict) -> list[str]:
     return errors
 
 
-def merge_upsert(existing: list[dict], incoming: list[dict], key="product") -> list[dict]:
-    """MERGE INTO semantics: if a row with this key already exists,
-    overwrite it (update); otherwise insert it. Mirrors Delta Lake's
-    `MERGE ... WHEN MATCHED THEN UPDATE ... WHEN NOT MATCHED THEN INSERT`."""
-    by_key = {row[key]: row for row in existing}
-    for row in incoming:
-        by_key[row[key]] = row  # update-or-insert
-    return list(by_key.values())
-
-
 def build_gold_aggregates(silver_rows: list[dict]) -> list[dict]:
     """Business-ready rollup: per-product ticket volume, dominant topic,
-    and high-priority count. This is the table the RAG layer will use to
-    ground answers with real operational numbers."""
+    and high-priority count. This is the table the RAG layer reads
+    operational numbers from."""
     by_product = {}
     for row in silver_rows:
         p = row["product"]
@@ -86,25 +84,45 @@ def build_gold_aggregates(silver_rows: list[dict]) -> list[dict]:
     return gold_rows
 
 
-def run_lakehouse(silver_rows: list[dict], gold_path="data/gold/product_stats_gold.json", log_fn=print):
+def run_lakehouse(silver_rows: list[dict], gold_path=GOLD_TABLE_PATH, log_fn=print):
     new_gold_rows = build_gold_aggregates(silver_rows)
+    new_df = pd.DataFrame(new_gold_rows)
 
-    existing_gold = []
-    if os.path.exists(gold_path):
-        with open(gold_path) as f:
-            existing_gold = json.load(f)
+    table_exists = os.path.exists(os.path.join(gold_path, "_delta_log"))
 
-    merged = merge_upsert(existing_gold, new_gold_rows, key="product")
+    if not table_exists:
+        # First run: no table yet, just create it. Delta enforces the
+        # schema of this initial write for every write that follows.
+        write_deltalake(gold_path, new_df, mode="overwrite")
+        merged_count = len(new_df)
+    else:
+        dt = DeltaTable(gold_path)
+        (
+            dt.merge(
+                source=new_df,
+                predicate="target.product = source.product",
+                source_alias="source",
+                target_alias="target",
+            )
+            .when_matched_update_all()
+            .when_not_matched_insert_all()
+            .execute()
+        )
+        merged_count = len(new_df)
 
-    with open(gold_path, "w") as f:
-        json.dump(merged, f, indent=2)
+    # Read the table back so callers (rag_pipeline.py, orchestrator.py)
+    # keep getting the same list[dict] shape they always have.
+    final_df = DeltaTable(gold_path).to_pandas()
+    merged = final_df.to_dict(orient="records")
 
-    log_fn(f"[lakehouse] gold table written: {len(merged)} product rows "
-           f"({len(new_gold_rows)} upserted this run) -> {gold_path}")
+    log_fn(f"[lakehouse] gold Delta table written: {len(merged)} product rows "
+           f"({merged_count} upserted this run) -> {gold_path}")
     return merged
 
 
 if __name__ == "__main__":
+    import json
+
     with open("data/silver/tickets_silver.json") as f:
         silver = json.load(f)
     result = run_lakehouse(silver)
