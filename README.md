@@ -1,161 +1,183 @@
-"""
-data_generator.py
-------------------
-Creates fake (synthetic) customer support data so the whole pipeline has
-something to chew on, without needing a real company's data.
+# Real-Time Customer Support Intelligence Platform
+**Capstone Project — Modern Data Engineering for AI Systems**
 
-Two kinds of data come out of this:
-1. "tickets"   -> raw customer support messages (like what would arrive on
-                  a Kafka topic in real life)
-2. "kb_articles" -> knowledge base articles support agents use to answer
-                  tickets (this is what our RAG system will search over)
+This project integrates the five things the course covered — ingestion,
+a bronze/silver/gold lakehouse, data quality gating, RAG, and pipeline
+orchestration — into one working, run-it-yourself Python pipeline.
 
-We deliberately inject some BAD rows (missing fields, bad emails, duplicate
-ids, out-of-range values) so the Data Quality Gate later has real problems
-to catch. That's the whole point of the assignment: prove the quality gate
-actually works, not just that it runs.
-"""
+It simulates a support desk system: customer tickets stream in, get
+validated, get cleaned, get rolled up into business metrics, and a RAG
+system answers support questions using a knowledge base + those metrics.
 
-import json
-import random
-from datetime import datetime, timedelta
+## Why it's built this way
 
-random.seed(42)  # makes the "random" data reproducible every run
+The course slides recommend an enterprise stack (Kafka, Delta Lake,
+Airflow, Qdrant, Great Expectations, an LLM API). Those need paid
+accounts, servers, or internet access to install/run. This project
+implements the **same architecture and the same algorithms** those tools
+provide, in plain Python, so it runs anywhere with just
+`pip install -r requirements.txt` — no cloud accounts, no Docker, no API
+keys. Every module's docstring explains exactly which real tool it stands
+in for and how to swap it in. That trade-off is intentional and is called
+out below and in the code — I'd rather submit something that actually
+runs and that I can explain, than something that name-drops tools it
+never actually executes.
 
-PRODUCTS = ["Laptop Pro 14", "Wireless Mouse X1", "4K Monitor 27in",
-            "Mechanical Keyboard K2", "USB-C Dock", "Noise Cancelling Headset"]
+## Architecture
 
-TOPICS = ["shipping delay", "refund request", "product defect",
-          "login issue", "billing question", "warranty claim"]
+```
+generate_data → ingest (producer/consumer + schema check)
+             → quality_gate (completeness/validity/uniqueness/accuracy)
+             → lakehouse (bronze → silver → gold, MERGE upsert)
+             → rag_demo (chunk → embed → hybrid search → grounded answer)
+```
 
-GOOD_MESSAGE_TEMPLATES = [
-    "My order for {product} is delayed, can you check the status?",
-    "I want a refund for my {product}, it stopped working after 2 days.",
-    "The {product} I received is defective, the screen has dead pixels.",
-    "I can't log into my account to track my {product} order.",
-    "I was charged twice for my {product}, please fix my billing.",
-    "Is my {product} still under warranty? It broke after 3 months.",
-]
+This is a real DAG (Directed Acyclic Graph) — `orchestrator.py` sorts and
+runs these five tasks in dependency order, exactly like Airflow's
+scheduler does. `airflow_dag.py` is the same DAG written as an actual
+Airflow `DAG` object, for production reference.
 
+| Layer | What it does | Production tool it represents | What's actually running here |
+|---|---|---|---|
+| Ingestion | Producer publishes ticket events, consumer reads them, schema is checked at the door | Apache Kafka | Python `queue.Queue` + a background thread |
+| Quality Gate | Checks Completeness, Validity, Uniqueness, Accuracy; quarantines bad rows | Great Expectations | Hand-written check functions (same 4 dimensions) |
+| Lineage | START/COMPLETE/FAIL events logged per run | OpenLineage → Marquez | Same JSON event shape, appended to `logs/lineage_events.jsonl` |
+| Lakehouse | bronze (raw) → silver (validated) → gold (aggregated), MERGE upsert, schema enforcement | Delta Lake on S3 | JSON files in `data/bronze` `/silver` `/gold` + a Python `merge_upsert()` function |
+| RAG | Chunk KB articles → vectorize → hybrid search → rerank → grounded, cited answer | Sentence-Transformers + Qdrant/Chroma + an LLM | scikit-learn `TfidfVectorizer` + cosine similarity + a template generator |
+| Orchestration | Task dependency graph, topological execution order | Apache Airflow | `orchestrator.py`'s `SimpleDAG` class (same topological-sort algorithm Airflow uses) + `airflow_dag.py` (the real Airflow DAG file) |
 
-def _random_timestamp(days_back=30):
-    start = datetime(2026, 6, 1)
-    offset = timedelta(days=random.randint(0, days_back),
-                        hours=random.randint(0, 23),
-                        minutes=random.randint(0, 59))
-    return (start + offset).isoformat()
+## How to run it
 
+```bash
+pip install -r requirements.txt
+python orchestrator.py
+```
 
-def generate_tickets(n_good=180, n_bad=20):
-    """Generate a mix of clean and intentionally-broken support tickets."""
-    tickets = []
+That single command runs the entire pipeline end-to-end: generates 200
+synthetic support tickets (with some intentionally broken ones mixed in
+so the quality gate has real problems to catch), ingests them, quality
+checks them, builds the gold aggregate table, and answers 3 sample support
+questions using RAG. Everything is deterministic (seeded), so you'll get
+the same numbers every run.
 
-    # ---- good, valid tickets ----
-    for i in range(1, n_good + 1):
-        product = random.choice(PRODUCTS)
-        template = random.choice(GOOD_MESSAGE_TEMPLATES)
-        tickets.append({
-            "ticket_id": f"TCK-{i:05d}",
-            "customer_email": f"customer{i}@example.com",
-            "product": product,
-            "topic": random.choice(TOPICS),
-            "message": template.format(product=product),
-            "created_at": _random_timestamp(),
-            "priority": random.choice(["low", "medium", "high"]),
-        })
+Each module can also be run on its own to inspect one stage at a time:
 
-    # ---- intentionally broken tickets (for the quality gate to catch) ----
-    bad_makers = [
-        # missing ticket_id
-        lambda i: {"ticket_id": "", "customer_email": f"bad{i}@example.com",
-                   "product": random.choice(PRODUCTS), "topic": "billing question",
-                   "message": "Missing id test", "created_at": _random_timestamp(),
-                   "priority": "low"},
-        # malformed email
-        lambda i: {"ticket_id": f"TCK-BAD{i:03d}", "customer_email": "not-an-email",
-                   "product": random.choice(PRODUCTS), "topic": "login issue",
-                   "message": "Bad email test", "created_at": _random_timestamp(),
-                   "priority": "medium"},
-        # missing message (empty)
-        lambda i: {"ticket_id": f"TCK-BAD{i:03d}", "customer_email": f"empty{i}@example.com",
-                   "product": random.choice(PRODUCTS), "topic": "refund request",
-                   "message": "", "created_at": _random_timestamp(), "priority": "high"},
-        # invalid priority value (out of allowed set)
-        lambda i: {"ticket_id": f"TCK-BAD{i:03d}", "customer_email": f"pri{i}@example.com",
-                   "product": random.choice(PRODUCTS), "topic": "warranty claim",
-                   "message": "Bad priority test", "created_at": _random_timestamp(),
-                   "priority": "URGENT!!"},
-        # duplicate ticket_id (re-uses TCK-00001)
-        lambda i: {"ticket_id": "TCK-00001", "customer_email": f"dup{i}@example.com",
-                   "product": random.choice(PRODUCTS), "topic": "shipping delay",
-                   "message": "Duplicate id test", "created_at": _random_timestamp(),
-                   "priority": "low"},
-    ]
-    for i in range(1, n_bad + 1):
-        maker = bad_makers[i % len(bad_makers)]
-        tickets.append(maker(i))
+```bash
+python data_generator.py   # writes data/raw_tickets.json, data/kb_articles.json
+python ingestion.py        # reads raw tickets, writes data/bronze/
+python quality_gate.py     # reads bronze, writes data/silver/, data/quarantine/
+python lakehouse.py        # reads silver, writes data/gold/
+python rag_pipeline.py     # reads kb_articles + gold, writes logs/rag_demo_output.json
+```
 
-    random.shuffle(tickets)
-    return tickets
+## Output (actual run, captured in `logs/full_run_output.txt`)
 
+```
+[orchestrator] DAG 'capstone_support_platform' execution order: ['generate_data', 'ingest', 'quality_gate', 'lakehouse', 'rag_demo']
 
-def generate_kb_articles():
-    """Small knowledge base the RAG system will retrieve answers from."""
-    return [
-        {
-            "doc_id": "KB-001",
-            "title": "Shipping Delay Policy",
-            "text": ("If an order is delayed by more than 5 business days, customers are "
-                      "eligible for a shipping refund or expedited replacement shipping at "
-                      "no extra cost. Always check the carrier tracking link first before "
-                      "issuing a refund."),
-        },
-        {
-            "doc_id": "KB-002",
-            "title": "Refund Eligibility",
-            "text": ("Products are eligible for a full refund within 30 days of delivery if "
-                      "unused, or within 14 days if opened but defective. Defective items "
-                      "must have photo evidence attached to the ticket before a refund is "
-                      "approved."),
-        },
-        {
-            "doc_id": "KB-003",
-            "title": "Handling Defective Products",
-            "text": ("For defective product reports (dead pixels, broken buttons, DOA units), "
-                      "agents should first offer a free replacement before a refund. Escalate "
-                      "to the hardware team if the same product model has 3+ defect reports in "
-                      "a week."),
-        },
-        {
-            "doc_id": "KB-004",
-            "title": "Account Login Troubleshooting",
-            "text": ("Login issues are usually caused by expired sessions or password resets "
-                      "sent to an old email. Direct customers to the 'Forgot Password' flow, "
-                      "and check the account_email field matches their current email before "
-                      "resetting."),
-        },
-        {
-            "doc_id": "KB-005",
-            "title": "Duplicate Billing Charges",
-            "text": ("Duplicate charges usually come from a failed payment retry. Agents should "
-                      "check the billing_transactions table for two charges within 60 seconds "
-                      "of each other before refunding the duplicate automatically."),
-        },
-        {
-            "doc_id": "KB-006",
-            "title": "Warranty Claim Process",
-            "text": ("Standard warranty covers manufacturing defects for 12 months from "
-                      "purchase date. Accidental damage is not covered. Ask for the order "
-                      "confirmation email to verify the purchase date before approving a claim."),
-        },
-    ]
+[orchestrator] ---- running task 'generate_data' (depends_on=[]) ----
+[orchestrator] task 'generate_data' SUCCESS (0.004s)
 
+[orchestrator] ---- running task 'ingest' (depends_on=['generate_data']) ----
+[ingestion] producer publishing 200 events to topic 'support-tickets'
+[ingestion] consumer accepted 200 events, rejected 0 at schema validation
+[orchestrator] task 'ingest' SUCCESS (0.504s)
 
-if __name__ == "__main__":
-    tickets = generate_tickets()
-    kb = generate_kb_articles()
-    with open("data/raw_tickets.json", "w") as f:
-        json.dump(tickets, f, indent=2)
-    with open("data/kb_articles.json", "w") as f:
-        json.dump(kb, f, indent=2)
-    print(f"Generated {len(tickets)} tickets and {len(kb)} KB articles.")
+[orchestrator] ---- running task 'quality_gate' (depends_on=['ingest']) ----
+[quality_gate] PASS_WITH_WARNINGS — 180/200 rows passed (90.0%). Failures by dimension: {'completeness': 8, 'validity': 8, 'accuracy': 0, 'uniqueness': 7}
+[orchestrator] task 'quality_gate' SUCCESS (0.003s)
+
+[orchestrator] ---- running task 'lakehouse' (depends_on=['quality_gate']) ----
+[lakehouse] gold table written: 6 product rows (6 upserted this run) -> data/gold/product_stats_gold.json
+[orchestrator] task 'lakehouse' SUCCESS (0.000s)
+
+[orchestrator] ---- running task 'rag_demo' (depends_on=['generate_data', 'lakehouse']) ----
+[rag] indexed 6 chunks from 6 KB articles
+[rag] query='My Laptop Pro 14 shipment is late, what should I do?' -> top match KB-002 (score=0.2112)
+[rag] query='Customer wants a refund for a defective product' -> top match KB-003 (score=0.5182)
+[rag] query='I can't login to my account, how do I fix it?' -> top match KB-004 (score=0.1959)
+[orchestrator] task 'rag_demo' SUCCESS (0.008s)
+```
+
+Sample generated (grounded, cited) RAG answer, from `logs/rag_demo_output.json`:
+
+> **Q:** Customer wants a refund for a defective product
+> **A:** Based on Handling Defective Products (KB-003): For defective
+> product reports (dead pixels, broken buttons, DOA units), agents should
+> first offer a free replacement before a refund. Escalate to the
+> hardware team if the same product model has 3+ defect reports in a
+> week.
+> **Citations:** KB-003 (Handling Defective Products), KB-002 (Refund
+> Eligibility), KB-001 (Shipping Delay Policy)
+
+Full quality report, from `logs/quality_report.json`:
+
+```json
+{
+  "total_rows": 200,
+  "passed": 180,
+  "quarantined": 20,
+  "pass_rate_pct": 90.0,
+  "dimension_failure_counts": {
+    "completeness": 8,
+    "validity": 8,
+    "accuracy": 0,
+    "uniqueness": 7
+  },
+  "status": "PASS_WITH_WARNINGS"
+}
+```
+
+Every quarantined row is kept in `data/quarantine/quality_rejects.json`
+with the exact reason it failed (e.g.
+`"validity: priority 'URGENT!!' not in ['high', 'low', 'medium']"`), so
+you can trace precisely why the gate rejected it — that traceability is
+the entire point of a quality gate.
+
+## Repo layout
+
+```
+data_generator.py     synthetic ticket + knowledge-base data (with intentional bad rows)
+ingestion.py           Deliverable 1: producer/consumer + schema validation
+quality_gate.py        Deliverable 5: quality checks + OpenLineage-style events
+lakehouse.py            Deliverable 2: bronze/silver/gold + MERGE + schema enforcement
+rag_pipeline.py         Deliverable 3: chunking, embedding, hybrid search, grounded answers
+orchestrator.py          Deliverable 4: DAG engine that runs everything end-to-end
+airflow_dag.py            the same DAG as a real Apache Airflow DAG (reference only)
+data/                       bronze / silver / gold / quarantine outputs land here
+logs/                        quality report, lineage events, RAG output, full run log
+requirements.txt
+```
+
+## Mapping to the grading rubric
+
+- **Deliverable 1 — Ingestion (20 pts):** `ingestion.py` — producer/consumer
+  pattern + schema validation at the boundary.
+- **Deliverable 2 — Lakehouse (25 pts):** `lakehouse.py` — bronze/silver/gold
+  zones, `merge_upsert()` implementing MERGE semantics, `enforce_schema()`
+  rejecting malformed gold rows.
+- **Deliverable 3 — RAG pipeline (25 pts):** `rag_pipeline.py` — chunking,
+  vectorization, hybrid (vector + lexical) search, reranking, grounded/cited
+  generation.
+- **Deliverable 4 — Orchestration (15 pts):** `orchestrator.py` (executable
+  DAG engine) + `airflow_dag.py` (real Airflow DAG definition).
+- **Deliverable 5 — Quality gate (15 pts):** `quality_gate.py` — four DAMA
+  quality dimensions + OpenLineage-style START/COMPLETE/FAIL events in
+  `logs/lineage_events.jsonl`.
+
+## What I'd change for a real production deployment
+
+- Swap `queue.Queue` in `ingestion.py` for `kafka-python`'s
+  `KafkaProducer`/`KafkaConsumer` — the `produce()`/`consume_all()` method
+  shapes are already written to match.
+- Swap the JSON files in `lakehouse.py` for real Delta Lake tables via the
+  `deltalake` package (`write_deltalake(path, df, mode="merge", ...)`).
+- Swap `TfidfVectorizer` in `rag_pipeline.py` for a real neural embedding
+  model (`sentence-transformers`) and store vectors in Qdrant/ChromaDB
+  instead of an in-memory list.
+- Swap `generate_answer()`'s template for an actual LLM API call (pass it
+  the retrieved chunks as context and the user's question).
+- Point `emit_lineage_event()` at a running Marquez server instead of a
+  local file.
+- Deploy `airflow_dag.py` to a real Airflow instance for scheduling,
+  retries, and monitoring instead of running `orchestrator.py` by hand.
