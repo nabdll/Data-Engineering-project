@@ -1,164 +1,99 @@
 """
-data_generator.py
-------------------
-Creates fake (synthetic) customer support data so the whole pipeline has
-something to chew on, without needing a real company's data.
+airflow_dag.py
+--------------
+The REAL Apache Airflow DAG definition for this pipeline — the
+production version of what `orchestrator.py` runs locally.
 
-Two kinds of data come out of this:
- 1. "tickets"     -> raw customer support messages (like what would arrive on
-                     a Kafka topic in real life)
- 2. "kb_articles" -> knowledge base articles support agents use to answer
-                     tickets (this is what our RAG system will search over)
+This file's logic is unchanged (the instructor's note was that it was
+"correctly written but never actually run") — the fix here isn't code,
+it's actually executing it once and keeping proof of the run.
 
-We deliberately inject some BAD rows (missing fields, bad emails, duplicate
-ids, out-of-range values) so the Data Quality Gate later has real problems
-to catch. That's the whole point of the assignment: prove the quality gate
-actually works, not just that it runs.
+How to actually run this for real and capture proof:
 
-Unchanged — the instructor's note was to keep this file as-is.
+    pip install -r requirements-airflow-optional.txt   # apache-airflow
+    export AIRFLOW_HOME=~/airflow
+    airflow db migrate                # first time only (Airflow 2.7+)
+    cp airflow_dag.py $AIRFLOW_HOME/dags/
+    airflow standalone
+    # open the printed URL, trigger "capstone_support_platform", let it
+    # finish, then screenshot the successful DAG run in the UI.
+
+Or, faster (no webserver, no UI, just proves the DAG object is valid and
+runs task-by-task) using Airflow's dag.test() helper:
+
+    python -c "
+    from airflow_dag import dag
+    dag.test()
+    "
+
+Either way, keep the terminal output / screenshot as the deliverable
+proof this was actually executed, not just written.
 """
 
-import json
-import random
-from datetime import datetime, timedelta
+from datetime import datetime
 
-random.seed(42)  # makes the "random" data reproducible every run
+from airflow import DAG
+from airflow.operators.python import PythonOperator
 
-PRODUCTS = ["Laptop Pro 14", "Wireless Mouse X1", "4K Monitor 27in",
-            "Mechanical Keyboard K2", "USB-C Dock", "Noise Cancelling Headset"]
+import data_generator
+import ingestion
+import quality_gate
+import lakehouse
+import rag_pipeline
 
-TOPICS = ["shipping delay", "refund request", "product defect",
-          "login issue", "billing question", "warranty claim"]
+default_args = {
+    "owner": "capstone-student",
+    "retries": 2,
+    "retry_delay": 300,  # seconds
+}
 
-GOOD_MESSAGE_TEMPLATES = [
-    "My order for {product} is delayed, can you check the status?",
-    "I want a refund for my {product}, it stopped working after 2 days.",
-    "The {product} I received is defective, the screen has dead pixels.",
-    "I can't log into my account to track my {product} order.",
-    "I was charged twice for my {product}, please fix my billing.",
-    "Is my {product} still under warranty? It broke after 3 months.",
-]
+with DAG(
+    dag_id="capstone_support_platform",
+    description="Real-Time Customer Support Intelligence Platform",
+    schedule_interval="@hourly",
+    start_date=datetime(2026, 1, 1),
+    catchup=False,
+    default_args=default_args,
+    tags=["capstone", "data-quality", "rag"],
+) as dag:
 
+    def _generate_data(**context):
+        tickets = data_generator.generate_tickets()
+        kb = data_generator.generate_kb_articles()
+        context["ti"].xcom_push(key="ticket_count", value=len(tickets))
+        return {"tickets": tickets, "kb": kb}
 
-def _random_timestamp(days_back=30):
-    start = datetime(2026, 6, 1)
-    offset = timedelta(days=random.randint(0, days_back),
-                        hours=random.randint(0, 23),
-                        minutes=random.randint(0, 59))
-    return (start + offset).isoformat()
+    def _ingest(**context):
+        upstream = context["ti"].xcom_pull(task_ids="generate_data")
+        result = ingestion.run_ingestion(upstream["tickets"])
+        return result
 
+    def _quality_gate(**context):
+        upstream = context["ti"].xcom_pull(task_ids="ingest")
+        run_id = context["run_id"]
+        clean, quarantined, report = quality_gate.run_quality_gate(upstream["accepted"], run_id)
+        if report["status"] == "FAIL":
+            raise RuntimeError("Quality gate failed — halting DAG, batch quarantined")
+        return {"clean": clean, "report": report}
 
-def generate_tickets(n_good=180, n_bad=20):
-    """Generate a mix of clean and intentionally-broken support tickets."""
-    tickets = []
+    def _lakehouse(**context):
+        upstream = context["ti"].xcom_pull(task_ids="quality_gate")
+        gold = lakehouse.run_lakehouse(upstream["clean"])
+        return {"gold": gold}
 
-    # ---- good, valid tickets ----
-    for i in range(1, n_good + 1):
-        product = random.choice(PRODUCTS)
-        template = random.choice(GOOD_MESSAGE_TEMPLATES)
-        tickets.append({
-            "ticket_id": f"TCK-{i:05d}",
-            "customer_email": f"customer{i}@example.com",
-            "product": product,
-            "topic": random.choice(TOPICS),
-            "message": template.format(product=product),
-            "created_at": _random_timestamp(),
-            "priority": random.choice(["low", "medium", "high"]),
-        })
+    def _rag_demo(**context):
+        gen = context["ti"].xcom_pull(task_ids="generate_data")
+        lake = context["ti"].xcom_pull(task_ids="lakehouse")
+        demo_queries = [
+            "My Laptop Pro 14 shipment is late, what should I do?",
+            "Customer wants a refund for a defective product",
+        ]
+        return rag_pipeline.run_rag_demo(gen["kb"], lake["gold"], demo_queries)
 
-    # ---- intentionally broken tickets (for the quality gate to catch) ----
-    bad_makers = [
-        # missing ticket_id
-        lambda i: {"ticket_id": "", "customer_email": f"bad{i}@example.com",
-                   "product": random.choice(PRODUCTS), "topic": "billing question",
-                   "message": "Missing id test", "created_at": _random_timestamp(),
-                   "priority": "low"},
-        # malformed email
-        lambda i: {"ticket_id": f"TCK-BAD{i:03d}", "customer_email": "not-an-email",
-                   "product": random.choice(PRODUCTS), "topic": "login issue",
-                   "message": "Bad email test", "created_at": _random_timestamp(),
-                   "priority": "medium"},
-        # missing message (empty)
-        lambda i: {"ticket_id": f"TCK-BAD{i:03d}", "customer_email": f"empty{i}@example.com",
-                   "product": random.choice(PRODUCTS), "topic": "refund request",
-                   "message": "", "created_at": _random_timestamp(), "priority": "high"},
-        # invalid priority value (out of allowed set)
-        lambda i: {"ticket_id": f"TCK-BAD{i:03d}", "customer_email": f"pri{i}@example.com",
-                   "product": random.choice(PRODUCTS), "topic": "warranty claim",
-                   "message": "Bad priority test", "created_at": _random_timestamp(),
-                   "priority": "URGENT!!"},
-        # duplicate ticket_id (re-uses TCK-00001)
-        lambda i: {"ticket_id": "TCK-00001", "customer_email": f"dup{i}@example.com",
-                   "product": random.choice(PRODUCTS), "topic": "shipping delay",
-                   "message": "Duplicate id test", "created_at": _random_timestamp(),
-                   "priority": "low"},
-    ]
+    generate_data = PythonOperator(task_id="generate_data", python_callable=_generate_data)
+    ingest = PythonOperator(task_id="ingest", python_callable=_ingest)
+    quality_gate_task = PythonOperator(task_id="quality_gate", python_callable=_quality_gate)
+    lakehouse_task = PythonOperator(task_id="lakehouse", python_callable=_lakehouse)
+    rag_demo = PythonOperator(task_id="rag_demo", python_callable=_rag_demo)
 
-    for i in range(1, n_bad + 1):
-        maker = bad_makers[i % len(bad_makers)]
-        tickets.append(maker(i))
-
-    random.shuffle(tickets)
-    return tickets
-
-
-def generate_kb_articles():
-    """Small knowledge base the RAG system will retrieve answers from."""
-    return [
-        {
-            "doc_id": "KB-001",
-            "title": "Shipping Delay Policy",
-            "text": ("If an order is delayed by more than 5 business days, customers are "
-                      "eligible for a shipping refund or expedited replacement shipping at "
-                      "no extra cost. Always check the carrier tracking link first before "
-                      "issuing a refund."),
-        },
-        {
-            "doc_id": "KB-002",
-            "title": "Refund Eligibility",
-            "text": ("Products are eligible for a full refund within 30 days of delivery if "
-                      "unused, or within 14 days if opened but defective. Defective items "
-                      "must have photo evidence attached to the ticket before a refund is "
-                      "approved."),
-        },
-        {
-            "doc_id": "KB-003",
-            "title": "Handling Defective Products",
-            "text": ("For defective product reports (dead pixels, broken buttons, DOA units), "
-                      "agents should first offer a free replacement before a refund. Escalate "
-                      "to the hardware team if the same product model has 3+ defect reports in "
-                      "a week."),
-        },
-        {
-            "doc_id": "KB-004",
-            "title": "Account Login Troubleshooting",
-            "text": ("Login issues are usually caused by expired sessions or password resets "
-                      "sent to an old email. Direct customers to the 'Forgot Password' flow, "
-                      "and check the account_email field matches their current email before "
-                      "resetting."),
-        },
-        {
-            "doc_id": "KB-005",
-            "title": "Duplicate Billing Charges",
-            "text": ("Duplicate charges usually come from a failed payment retry. Agents should "
-                      "check the billing_transactions table for two charges within 60 seconds "
-                      "of each other before refunding the duplicate automatically."),
-        },
-        {
-            "doc_id": "KB-006",
-            "title": "Warranty Claim Process",
-            "text": ("Standard warranty covers manufacturing defects for 12 months from "
-                      "purchase date. Accidental damage is not covered. Ask for the order "
-                      "confirmation email to verify the purchase date before approving a claim."),
-        },
-    ]
-
-
-if __name__ == "__main__":
-    tickets = generate_tickets()
-    kb = generate_kb_articles()
-    with open("data/raw_tickets.json", "w") as f:
-        json.dump(tickets, f, indent=2)
-    with open("data/kb_articles.json", "w") as f:
-        json.dump(kb, f, indent=2)
-    print(f"Generated {len(tickets)} tickets and {len(kb)} KB articles.")
+    generate_data >> ingest >> quality_gate_task >> lakehouse_task >> rag_demo
